@@ -11,12 +11,11 @@
     ~/.dotfiles: ""
 
     # Vim
-    ~/.vim: vim
+    ~/.vim/autoload: vim/autoload
     ~/.vimrc: vim/vimrc
 
     # Neovim
-    ~/.config/nvim: vim
-    ~/.config/nvim/init.vim: vim/vimrc
+    ~/.config/nvim/init.vim: vimrc
 
     # Zsh
     ~/.zshrc: zsh/zshrc
