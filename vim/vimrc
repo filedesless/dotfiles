@@ -1,0 +1,48 @@
+syntax on
+set number
+set relativenumber
+set tabstop=2
+set shiftwidth=2
+set expandtab
+set autoindent
+set smartindent
+set autoread
+au CursorHold * checktime
+
+execute pathogen#infect()
+call pathogen#helptags()
+
+" Start NERDTree, but focus on file
+autocmd VimEnter * NERDTree
+autocmd VimEnter * wincmd p
+
+" Close vim when there's only a NERDTree
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+
+" Autoindent
+ filetype plugin indent on 
+
+au VimEnter,BufWinEnter * syn match ErrorMsg " "
+
+" Uh... dafuck backspace?
+set backspace=indent,eol,start
+
+" I use a mouse; fight me
+set mouse=r
+
+" cpp doc
+autocmd FileType cpp set keywordprg=cppman
+autocmd FileType cc set keywordprg=cppman
+
+" ctrlp
+set runtimepath^=~/.vim/bundle/ctrlp.vim
+let g:ctrlp_map = '<c-p>'
+let g:ctrlp_cmd = 'CtrlP'
+let g:ctrlp_working_path_mode = 'ra'
+
+" java
+autocmd FileType java setlocal omnifunc=javacomplete#Complete
+
+" deoplete
+let g:deoplete#enable_at_startup = 1
+
