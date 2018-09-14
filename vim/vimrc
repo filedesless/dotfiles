@@ -26,9 +26,11 @@ call plug#begin('~/.local/share/nvim/plugged')
   " https://github.com/Shougo/deoplete.nvim
   Plug 'Shougo/deoplete.nvim'
 
+  " https://github.com/scrooloose/nerdtree
+  Plug 'scrooloose/nerdtree'
+
 " Initialize plugin system
 call plug#end()
-
 
 " ctrlp
 set runtimepath^=~/.vim/bundle/ctrlp.vim
@@ -42,3 +44,13 @@ autocmd FileType java setlocal omnifunc=javacomplete#Complete
 " deoplete
 let g:deoplete#enable_at_startup = 1
 
+" nerdtree
+" auto-open if no file specified
+autocmd StdinReadPre * let s:std_in=1
+autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
+
+" auto-close if alone
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+
+" key mapping to toggle
+map <C-e> :NERDTreeToggle<CR>
