@@ -1,6 +1,5 @@
 syntax on
-set number
-set relativenumber
+set number relativenumber
 set tabstop=2
 set shiftwidth=2
 set expandtab
@@ -9,30 +8,27 @@ set smartindent
 set autoread
 au CursorHold * checktime
 
-execute pathogen#infect()
-call pathogen#helptags()
-
-" Start NERDTree, but focus on file
-autocmd VimEnter * NERDTree
-autocmd VimEnter * wincmd p
-
-" Close vim when there's only a NERDTree
-autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
-
 " Autoindent
  filetype plugin indent on 
 
 au VimEnter,BufWinEnter * syn match ErrorMsg " "
 
-" Uh... dafuck backspace?
-set backspace=indent,eol,start
+" Vim Plug - Plugin Installation
+" https://github.com/junegunn/vim-plug
+call plug#begin('~/.local/share/nvim/plugged')
 
-" I use a mouse; fight me
-set mouse=r
+  " https://github.com/artur-shaik/vim-javacomplete2
+  Plug 'artur-shaik/vim-javacomplete2'
 
-" cpp doc
-autocmd FileType cpp set keywordprg=cppman
-autocmd FileType cc set keywordprg=cppman
+  " https://github.com/ctrlpvim/ctrlp.vim
+  Plug 'ctrlpvim/ctrlp.vim'
+
+  " https://github.com/Shougo/deoplete.nvim
+  Plug 'Shougo/deoplete.nvim'
+
+" Initialize plugin system
+call plug#end()
+
 
 " ctrlp
 set runtimepath^=~/.vim/bundle/ctrlp.vim
