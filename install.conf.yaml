@@ -15,7 +15,7 @@
     ~/.vimrc: vim/vimrc
 
     # Neovim
-    ~/.config/nvim/init.vim: vimrc
+    ~/.config/nvim/init.vim: vim/vimrc
 
     # Zsh
     ~/.zshrc: zsh/zshrc
