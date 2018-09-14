@@ -1,0 +1,24 @@
+- defaults:
+    link:
+      relink: true
+      create: true
+
+- clean: [ '~' ]
+
+- link:
+
+    # This project
+    ~/.dotfiles: ""
+
+    # Vim
+    ~/.vim: vim
+    ~/.vimrc: vim/vimrc
+
+    # Neovim
+    ~/.config/nvim: vim
+    ~/.config/nvim/init.vim: vim/vimrc
+
+    # Zsh
+    ~/.zshrc: zsh/zshrc
+    ~/.oh-my-zsh: zsh/oh-my-zsh
+    ~/.oh-my-zsh/themes: zsh/bureau-filedesless.zsh-theme
