@@ -21,3 +21,6 @@
     # Zsh
     ~/.zshrc: zsh/zshrc
     ~/.oh-my-zsh: zsh/oh-my-zsh
+
+    # Emacs
+    ~/.emacs: emacs/emacs
