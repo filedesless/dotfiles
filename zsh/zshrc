@@ -94,14 +94,12 @@ source $ZSH/oh-my-zsh.sh
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 alias vi="vim"
 alias vim="nvim"
-alias lint="mvn com.coveo:fmt-maven-plugin:format"
 
-alias plunit='swipl -t "load_test_files([]), run_tests." -s'
 alias e='emacs'
-export PATH=~/go/bin/:$PATH
 if [ $(uname -s) = "Darwin" ];
 then
   export PATH=/usr/local/Cellar/openvpn/2.4.6/sbin:$PATH
   export MAKEFLAGS="$MAKEFLAGS -j$(sysctl -n hw.ncpu)"
 fi
 export GPG_TTY=$(tty)
+export EDITOR=emacs
