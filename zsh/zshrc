@@ -99,6 +99,7 @@ alias e='emacs'
 if [ $(uname -s) = "Darwin" ];
 then
   export PATH=/usr/local/Cellar/openvpn/2.4.6/sbin:$PATH
+  export PATH="/usr/local/opt/ruby/bin:$PATH"
   export MAKEFLAGS="$MAKEFLAGS -j$(sysctl -n hw.ncpu)"
 fi
 export GPG_TTY=$(tty)
