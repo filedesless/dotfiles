@@ -95,7 +95,7 @@ source $ZSH/oh-my-zsh.sh
 alias vi="vim"
 alias vim="nvim"
 
-alias e='emacs'
+alias e='emacs -nw'
 if [ $(uname -s) = "Darwin" ];
 then
   export PATH=/usr/local/Cellar/openvpn/2.4.6/sbin:$PATH
@@ -103,4 +103,4 @@ then
   export MAKEFLAGS="$MAKEFLAGS -j$(sysctl -n hw.ncpu)"
 fi
 export GPG_TTY=$(tty)
-export EDITOR=emacs
+export EDITOR="emacs -nw"
