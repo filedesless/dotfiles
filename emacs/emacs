@@ -15,13 +15,6 @@
     (add-to-list 'package-archives (cons "gnu" (concat proto "://elpa.gnu.org/packages/")))))
 (package-initialize)
 
-;; yaml mode
-(require 'yaml-mode)
-(add-to-list 'auto-mode-alist '("\\.yml\\'" . yaml-mode))
-
-(add-hook 'yaml-mode-hook
-    '(lambda ()
-       (define-key yaml-mode-map "\C-m" 'newline-and-indent)))
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -29,13 +22,21 @@
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-    (auctex git dracula-theme haskell-mode haskell-emacs go-mode slack vmd-mode markdown-preview-eww markdown-preview-mode markdown-mode+ markdown-mode yaml-mode))))
+    (auctex git dracula-theme haskell-mode haskell-emacs go-mode vmd-mode markdown-preview-eww markdown-preview-mode markdown-mode+ markdown-mode yaml-mode))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  )
+ 
+;; yaml mode
+(require 'yaml-mode)
+(add-to-list 'auto-mode-alist '("\\.yml\\'" . yaml-mode))
+
+(add-hook 'yaml-mode-hook
+    '(lambda ()
+       (define-key yaml-mode-map "\C-m" 'newline-and-indent)))
 
 (require 'haskell-interactive-mode)
 (require 'haskell-process)
