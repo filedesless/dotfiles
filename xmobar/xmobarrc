@@ -22,8 +22,6 @@ Config { font = "-misc-fixed-*-*-*-*-15-*-*-*-*-*-*-*"
 					  "--low","lightblue"] 36000
 		    , Run Network "enp0s25" ["-L","0","-H","32",
 					  "--normal","green","--high","red"] 10
-		    , Run Network "wlp4s0" ["-L","0","-H","32",
-					  "--normal","green","--high","red"] 10
 		    , Run Network "tun0" ["-L","0","-H","32",
 					  "--normal","green","--high","red"] 10
 		    , Run Cpu ["-L","3","-H","50",
@@ -36,9 +34,10 @@ Config { font = "-misc-fixed-*-*-*-*-15-*-*-*-*-*-*-*"
 				 "--low", "red"] 20
 		    , Run Com "uname" ["-s","-r"] "" 36000
 		    , Run Date "%a %b %_d %Y %H:%M:%S" "date" 10
+		    , Run Volume "default" "Master" [] 10
 		    ]
        , sepChar = "%"
        , alignSep = "}{"
-       , template = "%cpu% | %memory% * %swap% | df: %disku% | %enp0s25% - %wlp4s0% - %tun0% }\
-		    \ { %CYQB% | %uname% | <fc=#A5C6EF>%date%</fc>"
+       , template = "%cpu% | %memory% * %swap% | df: %disku% | %enp0s25% - %tun0% }\
+		    \{ %default:Master% | %CYQB% | %uname% | %date%"
        }

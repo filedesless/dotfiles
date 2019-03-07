@@ -35,7 +35,8 @@
   # $ nix search wget
   environment.systemPackages = with pkgs; [
       wget vim emacs26-nox auctex tmux git file python3
-      firefox irssi sudo man-pages htop stack dmenu rxvt_unicode
+      firefox irssi sudo man-pages htop stack dmenu
+      bat screenfetch ansible rxvt_unicode
       haskellPackages.pandoc
       haskellPackages.xmobar
       haskellPackages.xmonad-contrib
@@ -84,8 +85,8 @@
       default = "xfce";
       xfce = {
         enable = true;
-	noDesktop = true;
-	enableXfwm = true;
+        noDesktop = true;
+        enableXfwm = true;
       };
     };
     displayManager.lightdm.enable = true;
