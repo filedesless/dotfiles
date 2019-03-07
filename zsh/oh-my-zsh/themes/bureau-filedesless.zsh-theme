@@ -106,7 +106,7 @@ get_space () {
   echo $SPACES
 }
 
-_1LEFT="$_USERNAME φ $_PATH"
+_1LEFT=" $_USERNAME φ $_PATH"
 _1RIGHT="[%*] "
 
 bureau_precmd () {
@@ -116,7 +116,7 @@ bureau_precmd () {
 }
 
 setopt prompt_subst
-PROMPT='λ $_LIBERTY '
+PROMPT=' λ $_LIBERTY '
 RPROMPT='$(nvm_prompt_info) $(bureau_git_prompt)'
 
 autoload -U add-zsh-hook
