@@ -16,4 +16,4 @@ git submodule update --init --recursive "${DOTBOT_DIR}"
 
 sudo cp nixos/configuration.nix /etc/nixos/
 
-nixos-rebuild switch
+sudo nixos-rebuild switch

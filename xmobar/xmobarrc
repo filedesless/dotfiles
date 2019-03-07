@@ -16,23 +16,29 @@ Config { font = "-misc-fixed-*-*-*-*-15-*-*-*-*-*-*-*"
        , allDesktops = True
        , overrideRedirect = False
        , commands = [ Run Weather "CYQB" ["-t","<station>: <tempC>C",
-                                          "-L","0","-H","20",
-                                          "--normal","green",
-                                          "--high","red",
-                                          "--low","lightblue"] 36000
-                    , Run Network "enp0s25" ["-L","0","-H","32",
-                                          "--normal","green","--high","red"] 10
-                    , Run Network "wlp4s0" ["-L","0","-H","32",
-                                          "--normal","green","--high","red"] 10
-                    , Run Cpu ["-L","3","-H","50",
-                               "--normal","green","--high","red"] 10
-                    , Run Memory ["-t","Mem: <usedratio>%"] 10
-                    , Run Swap [] 10
-                    , Run Com "uname" ["-s","-r"] "" 36000
-                    , Run Date "%a %b %_d %Y %H:%M:%S" "date" 10
-                    ]
+					  "-L","0","-H","20",
+					  "--normal","green",
+					  "--high","red",
+					  "--low","lightblue"] 36000
+		    , Run Network "enp0s25" ["-L","0","-H","32",
+					  "--normal","green","--high","red"] 10
+		    , Run Network "wlp4s0" ["-L","0","-H","32",
+					  "--normal","green","--high","red"] 10
+		    , Run Network "tun0" ["-L","0","-H","32",
+					  "--normal","green","--high","red"] 10
+		    , Run Cpu ["-L","3","-H","50",
+			       "--normal","green","--high","red"] 10
+		    , Run Memory ["-t","Mem: <usedratio>%"] 10
+		    , Run Swap [] 10
+		    , Run DiskU [("/", "<free>")]
+				["-L", "20", "-H", "50", "-m", "1", "-p", "3",
+				 "--normal", "white", "--high", "green",
+				 "--low", "red"] 20
+		    , Run Com "uname" ["-s","-r"] "" 36000
+		    , Run Date "%a %b %_d %Y %H:%M:%S" "date" 10
+		    ]
        , sepChar = "%"
        , alignSep = "}{"
-       , template = "%cpu% | %memory% * %swap% | %enp0s25% - %wlp4s0% }\
-                    \{ %CYQB% | %uname% | <fc=#A5C6EF>%date%</fc>"
+       , template = "%cpu% | %memory% * %swap% | df: %disku% | %enp0s25% - %wlp4s0% - %tun0% }\
+		    \ { %CYQB% | %uname% | <fc=#A5C6EF>%date%</fc>"
        }
