@@ -24,3 +24,6 @@
 
     # Emacs
     ~/.emacs: emacs/emacs
+
+    # git
+    ~/.gitignore: git/gitignore
