@@ -35,8 +35,8 @@
   # $ nix search wget
   environment.systemPackages = with pkgs; [
       wget vim emacs26-nox auctex tmux git file python3
-      firefox irssi sudo man-pages htop stack dmenu
-      bat screenfetch ansible rxvt_unicode
+      firefox irssi sudo man-pages htop stack dmenu lightlocker
+      bat screenfetch ansible rxvt_unicode keepass
       haskellPackages.pandoc
       haskellPackages.xmobar
       haskellPackages.xmonad-contrib
