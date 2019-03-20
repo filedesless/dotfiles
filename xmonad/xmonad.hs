@@ -12,7 +12,8 @@ layout = spacingRaw True (Border 10 10 10 10) True (Border 10 10 10 10) True $
 
 main = xmonad =<< xmobar defaultConfig
          { manageHook = manageDocks <+> manageHook defaultConfig
-	 , layoutHook = layout
+	 , layoutHook = avoidStruts layout
 	 , modMask = mod4Mask
 	 , terminal = term
+         , workspaces = ["1:term", "2:web", "3:mail", "4:media", "5:scratch", "6:scratch"]
 	 }

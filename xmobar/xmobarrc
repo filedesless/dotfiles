@@ -35,9 +35,11 @@ Config { font = "-misc-fixed-*-*-*-*-15-*-*-*-*-*-*-*"
 		    , Run Com "uname" ["-s","-r"] "" 36000
 		    , Run Date "%a %b %_d %Y %H:%M:%S" "date" 10
 		    , Run Volume "default" "Master" [] 10
+		    , Run StdinReader
 		    ]
        , sepChar = "%"
        , alignSep = "}{"
-       , template = "%cpu% | %memory% * %swap% | df: %disku% | %enp0s25% - %tun0% }\
-		    \{ %default:Master% | %CYQB% | %uname% | %date%"
+       , template = "%StdinReader% }{ %cpu% | %memory% * %swap% | \
+		    \df: %disku% | %enp0s25% - %tun0% \
+		    \%default:Master% | %CYQB% | %uname% | %date%"
        }
