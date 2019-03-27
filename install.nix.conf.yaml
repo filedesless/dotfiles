@@ -10,3 +10,6 @@
     # xmonad & xmobar
     ~/.xmobarrc: xmobar/xmobarrc
     ~/.xmonad/xmonad.hs: xmonad/xmonad.hs
+
+    # notes
+    ~/notes.md: nixos/notes.md

@@ -34,9 +34,10 @@
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
-      wget vim emacs26-nox auctex tmux git file python3
+      wget vim emacs26-nox auctex tmux git file python3 thunderbird
       firefox irssi sudo man-pages htop stack dmenu lightlocker
-      bat screenfetch ansible rxvt_unicode keepass
+      bat screenfetch ansible rxvt_unicode keepass mpv docker
+      multimarkdown
       haskellPackages.pandoc
       haskellPackages.xmobar
       haskellPackages.xmonad-contrib
@@ -99,7 +100,7 @@
   users.users.filedesless = {
     isNormalUser = true;
     uid = 1000;
-    extraGroups = [ "wheel" ];
+    extraGroups = [ "wheel" "docker" ];
   };
 
   # This value determines the NixOS release with which your system is to be
