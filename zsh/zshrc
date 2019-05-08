@@ -103,3 +103,8 @@ then
 fi
 export GPG_TTY=$(tty)
 export EDITOR="emacs -nw"
+
+# openshift completions
+if [ $commands[oc] ]; then
+  source <(oc completion zsh)
+fi
