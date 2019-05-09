@@ -20,9 +20,7 @@ Config { font = "-misc-fixed-*-*-*-*-15-*-*-*-*-*-*-*"
 					  "--normal","green",
 					  "--high","red",
 					  "--low","lightblue"] 36000
-		    , Run Network "enp0s25" ["-L","0","-H","32",
-					  "--normal","green","--high","red"] 10
-		    , Run Network "tun0" ["-L","0","-H","32",
+		    , Run Network "eno1" ["-L","0","-H","32",
 					  "--normal","green","--high","red"] 10
 		    , Run Cpu ["-L","3","-H","50",
 			       "--normal","green","--high","red"] 10
@@ -40,6 +38,6 @@ Config { font = "-misc-fixed-*-*-*-*-15-*-*-*-*-*-*-*"
        , sepChar = "%"
        , alignSep = "}{"
        , template = "%StdinReader% }{ %cpu% | %memory% * %swap% | \
-		    \df: %disku% | %enp0s25% - %tun0% \
+		    \df: %disku% | %eno1% \
 		    \%default:Master% | %CYQB% | %uname% | %date%"
        }
