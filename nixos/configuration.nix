@@ -36,7 +36,7 @@
   environment.systemPackages = with pkgs; [
       wget vim emacs26-nox auctex tmux git file python3 thunderbird
       firefox irssi sudo man-pages htop stack dmenu lightlocker
-      bat screenfetch ansible rxvt_unicode keepass mpv docker
+      bat screenfetch ansible rxvt_unicode keepassxc mpv docker
       multimarkdown
       haskellPackages.pandoc
       haskellPackages.xmobar
