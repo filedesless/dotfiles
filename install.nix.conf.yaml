@@ -13,3 +13,6 @@
 
     # notes
     ~/notes.md: nixos/notes.md
+
+    # .Xresources (term color)
+    ~/.Xresources: Xresources

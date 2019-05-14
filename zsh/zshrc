@@ -103,3 +103,4 @@ then
 fi
 export GPG_TTY=$(tty)
 export EDITOR="emacs -nw"
+export TERM=xterm
