@@ -36,8 +36,8 @@
   environment.systemPackages = with pkgs; [
       wget vim emacs26-nox auctex tmux git file python3 thunderbird
       firefox irssi sudo man-pages htop stack dmenu lightlocker
-      bat screenfetch ansible rxvt_unicode keepassxc mpv docker
-      multimarkdown
+      bat screenfetch gnumake rxvt_unicode keepassxc mpv docker
+      multimarkdown ansible ansible-lint i3lock
       haskellPackages.pandoc
       haskellPackages.xmobar
       haskellPackages.xmonad-contrib
@@ -68,6 +68,9 @@
   # Enable sound.
   sound.enable = true;
   hardware.pulseaudio.enable = true;
+
+  # docker
+  virtualisation.docker.enable = true;
 
   # Enable the X11 windowing system.
   services.xserver = {
@@ -107,6 +110,6 @@
   # compatible, in order to avoid breaking some software such as database
   # servers. You should change this only after NixOS release notes say you
   # should.
-  system.stateVersion = "18.09"; # Did you read the comment?
+  system.stateVersion = "19.03"; # Did you read the comment?
 
 }
