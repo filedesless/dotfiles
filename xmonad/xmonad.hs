@@ -97,7 +97,7 @@ main = xmonad =<< xmobar defaultConfig
          , layoutHook = avoidStruts layout
          , modMask = myModMask
          , terminal = term
-         , workspaces = ["1:term", "2:web", "3:mail", "4:media", "5:scratch", "6:scratch"]
+         , workspaces = ["1:term", "2:web", "3:mail", "4:media" ]
          , keys = myKeys
          }
 

@@ -37,7 +37,7 @@
       wget vim emacs26-nox auctex tmux git file python3 thunderbird
       firefox irssi sudo man-pages htop stack dmenu lightlocker
       bat screenfetch gnumake rxvt_unicode keepassxc mpv docker
-      multimarkdown ansible ansible-lint i3lock
+      multimarkdown ansible ansible-lint i3lock openshift
       haskellPackages.pandoc
       haskellPackages.xmobar
       haskellPackages.xmonad-contrib
@@ -105,6 +105,12 @@
     uid = 1000;
     extraGroups = [ "wheel" "docker" ];
   };
+
+  # Nix auto garbage collection
+  nix.gc.automatic = true;
+
+  # Nix auto upgrade
+  system.autoUpgrade.enable = true;
 
   # This value determines the NixOS release with which your system is to be
   # compatible, in order to avoid breaking some software such as database
