@@ -54,6 +54,11 @@
 
   # Enable the OpenSSH daemon.
   # services.openssh.enable = true;
+  services.emacs = with pkgs; {
+    enable = true;
+    package = emacs26-nox;
+    defaultEditor = true;
+  };
 
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ ... ];
