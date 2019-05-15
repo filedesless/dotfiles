@@ -50,7 +50,7 @@
 (add-to-list 'auto-mode-alist '("emacs$" . emacs-lisp-mode))
 (add-to-list 'auto-mode-alist '("\\.*rc$" . conf-unix-mode))
 
-(require 'moe-theme)
-(moe-dark)
+;(require 'moe-theme)
+;(moe-dark)
 
 (add-hook 'before-save-hook 'whitespace-cleanup)

@@ -54,10 +54,42 @@
 
   # Enable the OpenSSH daemon.
   # services.openssh.enable = true;
-  services.emacs = with pkgs; {
-    enable = true;
-    package = emacs26-nox;
-    defaultEditor = true;
+  services = {
+    # Enable the X11 windowing system.
+    xserver = {
+      enable = true;
+      autorun = true;
+      layout = "us";
+      libinput.enable = true;
+      displayManager.lightdm.enable = true;
+      windowManager = {
+        default = "xmonad";
+        xmonad = {
+          enable = true;
+          enableContribAndExtras = true;
+        };
+      };
+      desktopManager = {
+        default = "xfce";
+        xfce = {
+          enable = true;
+          noDesktop = true;
+          enableXfwm = true;
+        };
+      };
+    };
+    # enable emacsd
+    emacs = with pkgs; {
+      enable = true;
+      package = emacs26-nox;
+      defaultEditor = true;
+    };
+    # enable urxvtd
+    urxvtd = with pkgs; {
+      enable = true;
+      package = rxvt_unicode;
+    };
+    printing.enable = true;
   };
 
   # Open ports in the firewall.
@@ -67,39 +99,12 @@
   networking.firewall.enable = true;
   networking.firewall.trustedInterfaces = [ "lo" ];
 
-  # Enable CUPS to print documents.
-  services.printing.enable = true;
-
   # Enable sound.
   sound.enable = true;
   hardware.pulseaudio.enable = true;
 
   # docker
   virtualisation.docker.enable = true;
-
-  # Enable the X11 windowing system.
-  services.xserver = {
-    enable = true;
-    autorun = true;
-    layout = "us";
-    libinput.enable = true;
-    windowManager = {
-      default = "xmonad";
-      xmonad = {
-        enable = true;
-        enableContribAndExtras = true;
-      };
-    };
-    desktopManager = {
-      default = "xfce";
-      xfce = {
-        enable = true;
-        noDesktop = true;
-        enableXfwm = true;
-      };
-    };
-    displayManager.lightdm.enable = true;
-  };
 
   programs.zsh.enable = true;
 
