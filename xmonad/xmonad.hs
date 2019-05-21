@@ -3,6 +3,8 @@ import XMonad.Hooks.DynamicLog
 import XMonad.Hooks.ManageDocks
 import XMonad.Layout.Spacing
 import XMonad.Layout.Gaps
+import XMonad.Actions.DynamicWorkspaces
+import XMonad.Actions.CopyWindow(copy)
 import qualified Data.Map as M
 import qualified XMonad.StackSet as W
 import System.Exit
@@ -76,6 +78,24 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
     [((m .|. modMask, key), screenWorkspace sc >>= flip whenJust (windows . f))
         | (key, sc) <- zip [xK_w, xK_e, xK_r] [0..]
         , (f, m) <- [(W.view, 0), (W.shift, shiftMask)]]
+
+    ++
+
+    -- dynamic workspaces
+    [ ((modMask .|. shiftMask, xK_BackSpace), removeWorkspace)
+    , ((modMask .|. shiftMask, xK_v      ), selectWorkspace def)
+    , ((modMask, xK_m                    ), withWorkspace def (windows . W.shift))
+    , ((modMask .|. shiftMask, xK_m      ), withWorkspace def (windows . copy))
+    , ((modMask .|. shiftMask, xK_r      ), renameWorkspace def) ]
+
+    ++
+
+    -- mod-[1..9]       %! Switch to workspace N in the list of workspaces
+    -- mod-shift-[1..9] %! Move client to workspace N in the list of workspaces
+    let f c = (map (withNthWorkspace c) [0..]) in
+      zip (zip (repeat (modMask)) [xK_1..xK_9]) (f W.greedyView)
+      ++
+      zip (zip (repeat (modMask .|. shiftMask)) [xK_1..xK_9]) (f W.shift)
 
     ++
     -- Custom key bindings

@@ -38,7 +38,7 @@
       firefox irssi sudo man-pages htop stack dmenu lightlocker
       bat screenfetch gnumake rxvt_unicode keepassxc mpv docker
       multimarkdown ansible ansible-lint i3lock openshift
-      evince system-config-printer
+      evince system-config-printer remmina openconnect
       haskellPackages.pandoc
       haskellPackages.xmobar
       haskellPackages.xmonad-contrib
