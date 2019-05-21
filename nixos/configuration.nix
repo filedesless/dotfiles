@@ -38,6 +38,7 @@
       firefox irssi sudo man-pages htop stack dmenu lightlocker
       bat screenfetch gnumake rxvt_unicode keepassxc mpv docker
       multimarkdown ansible ansible-lint i3lock openshift
+      evince system-config-printer
       haskellPackages.pandoc
       haskellPackages.xmobar
       haskellPackages.xmonad-contrib
@@ -77,17 +78,6 @@
           enableXfwm = true;
         };
       };
-    };
-    # enable emacsd
-    emacs = with pkgs; {
-      enable = true;
-      package = emacs26-nox;
-      defaultEditor = true;
-    };
-    # enable urxvtd
-    urxvtd = with pkgs; {
-      enable = true;
-      package = rxvt_unicode;
     };
     printing.enable = true;
   };

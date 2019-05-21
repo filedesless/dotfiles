@@ -7,7 +7,7 @@ import qualified Data.Map as M
 import qualified XMonad.StackSet as W
 import System.Exit
 
-term = "urxvtc -bg black -tr -fg white -fn \"xft:Droid Sans Mono:pixelsize=15\" +sb -sh 25"
+term = "urxvt -bg black -tr -fg white -fn \"xft:Droid Sans Mono:pixelsize=15\" +sb -sh 25"
 --layout = avoidStruts $ layoutHook defaultConfig
 layout = spacingRaw True (Border 10 10 10 10) True (Border 10 10 10 10) True $
   gaps [(U,10), (R,10), (L,10), (D,10)] $ Tall 1 (1/2) (1/2) ||| Full

@@ -60,6 +60,7 @@ ZSH_THEME="bureau-filedesless"
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(
   git
+  oc
 )
 
 source $ZSH/oh-my-zsh.sh
@@ -95,6 +96,7 @@ source $ZSH/oh-my-zsh.sh
 alias vi="vim"
 alias vim="nvim"
 
+export EDITOR="emacs -nw"
 alias e=$EDITOR
 if [ $(uname -s) = "Darwin" ];
 then
