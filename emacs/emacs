@@ -22,7 +22,8 @@
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-    (moe-theme rust-mode nix-mode nixos-options auctex git dracula-theme haskell-mode haskell-emacs go-mode vmd-mode markdown-preview-eww markdown-preview-mode markdown-mode+ markdown-mode yaml-mode))))
+    (moe-theme rust-mode nix-mode nixos-options auctex git dracula-theme haskell-mode haskell-emacs go-mode vmd-mode markdown-preview-eww markdown-preview-mode markdown-mode+ markdown-mode yaml-mode)))
+ '(vc-follow-symlinks nil))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
