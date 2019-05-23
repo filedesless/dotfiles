@@ -6,7 +6,7 @@ case "$1" in
 	./install -c install.nix.conf.yaml
 	sudo cp nix/common.nix /etc/nixos/common.nix
 	sudo cp nix/"$1".nix /etc/nixos/configuration.nix
-	sudo nixos-rebuild switch
+	sudo nixos-rebuild test
 	;;
     *)
 	echo "Usage: $0 box|pad" 1>&2

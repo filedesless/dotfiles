@@ -12,5 +12,8 @@
   boot.loader.efi.canTouchEfiVariables = true;
 
   networking.hostName = "nixpad"; # Define your hostname.
+  networking.networkmanager.enable = true;
+  users.users.filedesless.extraGroups = [ "networkmanager" ];
+  #services.xserver.videoDrivers = [ "nvidia" ];
 
 }
