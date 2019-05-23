@@ -30,63 +30,20 @@
   # $ nix search wget
   environment.systemPackages = with pkgs; [
       wget vim emacs26-nox auctex tmux git file python3 thunderbird
-      firefox irssi sudo man-pages htop stack dmenu lightlocker
-      bat screenfetch gnumake rxvt_unicode keepassxc mpv docker
-      multimarkdown ansible ansible-lint i3lock openshift
-      evince system-config-printer remmina openconnect
-      haskellPackages.pandoc
-      haskellPackages.xmobar
-      haskellPackages.xmonad-contrib
-      haskellPackages.xmonad-extras
-      haskellPackages.xmonad
-      # kde stuff
-      kdeFrameworks.kwallet kdeApplications.kwalletmanager
-      kdeApplications.spectacle kdeApplications.print-manager kwallet-pam
-      kwalletcli simple-scan kgpg pinentry_qt5 kdeplasma-addons bluedevil
+      firefox irssi sudo man-pages htop stack dmenu
+      bat screenfetch gnumake keepassxc mpv docker
+      multimarkdown remmina openconnect
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
   # programs.mtr.enable = true;
-  programs.gnupg.agent = { enable = true; enableSSHSupport = true; };
+  #programs.gnupg.agent = { enable = true; enableSSHSupport = true; };
 
   # List services that you want to enable:
 
   # Enable the OpenSSH daemon.
   # services.openssh.enable = true;
-#  services = {
-#    # Enable the X11 windowing system.
-#    xserver = {
-#      enable = true;
-#      autorun = true;
-#      layout = "us";
-#      libinput.enable = true;
-#      displayManager.lightdm.enable = true;
-#      windowManager = {
-#        default = "xmonad";
-#        xmonad = {
-#          enable = true;
-#          enableContribAndExtras = true;
-#        };
-#      };
-#      desktopManager = {
-#        default = "xfce";
-#        xfce = {
-#          enable = true;
-#          noDesktop = true;
-#          enableXfwm = true;
-#        };
-#        plasma5.enable = true;
-#      };
-#    };
-#    printing.enable = true;
-#  };
-
-  services.xserver.enable = true;
-  services.xserver.libinput.enable = true;
-  services.xserver.desktopManager.plasma5.enable = true;
-  services.xserver.layout = "us";
-  services.printing.enable = true;
 
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ ... ];
@@ -115,6 +72,7 @@
 
   # Nix auto garbage collection
   nix.gc.automatic = true;
+  nix.optimise.automatic = true;
 
   # Nix auto upgrade
   system.autoUpgrade.enable = true;
