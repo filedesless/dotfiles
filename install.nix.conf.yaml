@@ -12,7 +12,7 @@
     ~/.xmonad/xmonad.hs: xmonad/xmonad.hs
 
     # notes
-    ~/notes.md: nixos/notes.md
+    ~/notes.md: nix/notes.md
 
     # .Xresources (term color)
     ~/.Xresources: Xresources
