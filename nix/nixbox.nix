@@ -37,6 +37,10 @@
       };
     };
     printing.enable = true;
+    openssh = {
+      enable = true;
+      permitRootLogin = "no";
+    };
   };
 
   environment.systemPackages = with pkgs; [
