@@ -37,6 +37,7 @@
     kwallet-pam kwalletcli simple-scan kgpg
     pinentry_qt5 kdeplasma-addons bluedevil
     kmail okular openshift ansible ansible-lint
+    google-chrome
   ];
 
 }
