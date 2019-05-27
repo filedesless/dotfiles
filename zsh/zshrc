@@ -61,7 +61,7 @@ ZSH_THEME="bureau-filedesless"
 plugins=(
   git
   kubectl
-  oc
+#  oc
 )
 
 source $ZSH/oh-my-zsh.sh

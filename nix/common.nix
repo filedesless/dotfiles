@@ -29,10 +29,17 @@
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
+      haskellPackages.pandoc
+      haskellPackages.xmobar
+      haskellPackages.xmonad-contrib
+      haskellPackages.xmonad-extras
+      haskellPackages.xmonad
+      i3lock rxvt_unicode xsecurelock
+      openshift ansible ansible-lint
       wget vim emacs26-nox auctex tmux git file python3 thunderbird
       firefox irssi sudo man-pages htop stack dmenu
-      bat screenfetch gnumake keepassxc mpv docker
-      multimarkdown remmina openconnect
+      bat screenfetch gnumake keepassxc mpv docker evince
+      multimarkdown remmina openconnect google-chrome
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
@@ -44,6 +51,32 @@
 
   # Enable the OpenSSH daemon.
   # services.openssh.enable = true;
+
+  services = {
+    xserver = {
+      enable = true;
+      autorun = true;
+      layout = "us";
+      libinput.enable = true;
+      displayManager.lightdm.enable = true;
+      windowManager = {
+        default = "xmonad";
+        xmonad = {
+          enable = true;
+          enableContribAndExtras = true;
+        };
+      };
+      desktopManager = {
+        default = "xfce";
+        xfce = {
+          enable = true;
+          noDesktop = true;
+          enableXfwm = true;
+        };
+      };
+    };
+    printing.enable = true;
+  };
 
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ ... ];
