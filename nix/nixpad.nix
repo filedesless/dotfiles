@@ -18,7 +18,7 @@
   networking.networkmanager.enable = true;
 
   environment.systemPackages = with pkgs; [
-    bluedevil
+    bluedevil wirelesstools
   ];
 
 }

@@ -112,7 +112,7 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
 
 
 
-main = xmonad =<< xmobar defaultConfig
+main = xmonad =<< topBar =<< bottomBar defaultConfig
          { manageHook = manageDocks <+> manageHook defaultConfig
          , layoutHook = avoidStruts layout
          , modMask = myModMask
@@ -120,6 +120,10 @@ main = xmonad =<< xmobar defaultConfig
          , workspaces = ["1:term", "2:web", "3:mail", "4:media" ]
          , keys = myKeys
          }
+  where
+    topBar = statusBar "xmobar ~/.xmobar/.topbarrc" xmobarPP toggleStrutsKey
+    bottomBar = statusBar "xmobar ~/.xmobar/.bottombarrc" xmobarPP toggleStrutsKey
+    toggleStrutsKey XConfig{modMask = modm} = (modm, xK_b)
 
 -- | Finally, a copy of the default bindings in simple textual tabular format.
 help :: String

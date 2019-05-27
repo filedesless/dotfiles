@@ -28,12 +28,11 @@ Config { font = "-misc-fixed-*-*-*-*-14-*-*-*-*-*-*-*"
 				["-L", "20", "-H", "50", "-m", "1", "-p", "3",
 				 "--normal", "yellow", "--high", "red",
 				 "--low", "green"] 20
-		    , Run Com "uname" ["-s","-r"] "" 36000
 		    , Run Date "%a %b %_d %Y %H:%M:%S" "date" 10
 		    , Run Volume "default" "Master" [] 10
 		    , Run StdinReader
 		    ]
        , sepChar = "%"
        , alignSep = "}{"
-       , template = "%StdinReader% }{ %cpu% | %memory% * %swap% | du: %disku% | %default:Master% | %CYQB% | %uname% | %date%  "
+       , template = "%StdinReader% }{ %cpu% | %memory% * %swap% | du: %disku% | %default:Master% | %CYQB% | %date%  "
        }
