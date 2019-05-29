@@ -35,7 +35,7 @@
       haskellPackages.xmonad-extras
       haskellPackages.xmonad
       i3lock rxvt_unicode xsecurelock
-      openshift ansible ansible-lint
+      openshift ansible ansible-lint feh imagemagick
       wget vim emacs26-nox auctex tmux git file python3 thunderbird
       firefox irssi sudo man-pages htop stack dmenu
       bat screenfetch gnumake keepassxc mpv docker evince
@@ -71,7 +71,7 @@
         xfce = {
           enable = true;
           noDesktop = true;
-          enableXfwm = true;
+          enableXfwm = false;
         };
       };
     };

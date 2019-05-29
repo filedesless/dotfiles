@@ -5,6 +5,8 @@ import XMonad.Layout.Spacing
 import XMonad.Layout.Gaps
 import XMonad.Actions.DynamicWorkspaces
 import XMonad.Actions.CopyWindow(copy)
+import XMonad.Config.Desktop
+import XMonad.Hooks.WallpaperSetter
 import qualified Data.Map as M
 import qualified XMonad.StackSet as W
 import System.Exit
@@ -117,13 +119,18 @@ main = xmonad =<< topBar =<< bottomBar defaultConfig
          , layoutHook = avoidStruts layout
          , modMask = myModMask
          , terminal = term
-         , workspaces = ["1:term", "2:web", "3:mail", "4:media" ]
+         , workspaces = myWorkspaces
          , keys = myKeys
+         , logHook = wallpaperSetter defWallpaperConf {
+             wallpapers = WallpaperList
+               [ (id, WallpaperDir "") | id <- myWorkspaces ]
+             }
          }
   where
     topBar = statusBar "xmobar ~/.xmobar/.topbarrc" xmobarPP toggleStrutsKey
     bottomBar = statusBar "xmobar ~/.xmobar/.bottombarrc" xmobarPP toggleStrutsKey
     toggleStrutsKey XConfig{modMask = modm} = (modm, xK_b)
+    myWorkspaces = ["1:term", "2:web", "3:mail", "4:media" ]
 
 -- | Finally, a copy of the default bindings in simple textual tabular format.
 help :: String

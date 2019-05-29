@@ -16,15 +16,20 @@ Config { font = "-misc-fixed-*-*-*-*-14-*-*-*-*-*-*-*"
        , allDesktops = True
        , overrideRedirect = False
        , commands = [ Run StdinReader
-		    , Run Com "nixos-version" [] "nixos" 36000
+		    , Run Com "/bin/sh" ["-c", "nixos-version |
+			awk -F \"[. ]\" '{print $1 \".\" $2 \" \" $5}'" ]
+			"nixos" 3600
+		    , Run Com "/bin/sh" ["-c",
+		      "echo $(readlink /nix/var/nix/profiles/system) |
+			cut -d'-' -f2" ] "generation" 3600
 		    , Run Com "uname" ["-s","-r"] "linux" 36000
 		    , Run Uptime [] 10
 		    , Run Battery [ "-t",
-			"AC: <acstatus> Battery: <watts> (<left>%) - <timeleft>",
+			"AC: <acstatus> Battery: <left>% (<watts>) - <timeleft>",
 			"-L", "10", "-H", "80", "-p", "3",
 			"--", "-O", "<fc=green>On</fc> - ", "-i", "",
 			"-L", "-15", "-H", "-5",
-			"-l", "red", "-m", "blue", "-h", "green"] 600
+			"-l", "red", "-m", "blue", "-h", "green" ] 600
 		    , Run Network "enp0s25"
 		      [ "-L", "8192", "-H", "32768", "-m", "7", "-S", "True"
 		      , "-t", "<dev>: <rx> | <tx>", "-x", "eth Off"
@@ -43,8 +48,9 @@ Config { font = "-misc-fixed-*-*-*-*-14-*-*-*-*-*-*-*"
 		      , "--normal", "yellow"
 		      , "--low", "red"
 		      , "-t", "<essid>: <qualitybar>"] 10
+		    , Run Kbd [ ("us", "US") ]
 		    ]
        , sepChar = "%"
        , alignSep = "}{"
-       , template = "NixOS: %nixos% on %linux% | %uptime% | %battery% }{ %tun0% | %wlp4s0wi% | %enp0s25%  "
+       , template = "NixOS: %nixos% on %linux% | Gen: %generation% | %uptime% | %battery% }{ kbd: %kbd% | %tun0% | %wlp4s0wi% | %enp0s25%  "
        }
