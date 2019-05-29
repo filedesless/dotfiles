@@ -16,6 +16,8 @@ au VimEnter,BufWinEnter * syn match ErrorMsg " "
 " Vim Plug - Plugin Installation
 " https://github.com/junegunn/vim-plug
 call plug#begin('~/.local/share/nvim/plugged')
+  " https://github.com/fatih/vim-go
+  Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 
   " https://github.com/artur-shaik/vim-javacomplete2
   Plug 'artur-shaik/vim-javacomplete2'
@@ -43,6 +45,11 @@ let g:ctrlp_working_path_mode = 'ra'
 
 " java
 autocmd FileType java setlocal omnifunc=javacomplete#Complete
+
+" go
+autocmd FileType go nmap <leader>b  <Plug>(go-build)
+autocmd FileType go nmap <leader>r  <Plug>(go-run)
+autocmd FileType go nmap <leader>t  <Plug>(go-test)
 
 " deoplete
 let g:deoplete#enable_at_startup = 1

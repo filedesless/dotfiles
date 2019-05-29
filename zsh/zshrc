@@ -59,9 +59,8 @@ ZSH_THEME="bureau-filedesless"
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(
+  golang
   git
-  kubectl
-  oc
 )
 
 source $ZSH/oh-my-zsh.sh
@@ -106,3 +105,5 @@ then
 fi
 export GPG_TTY=$(tty)
 export TERM=xterm
+export GOPATH=$HOME/go
+export PATH=$PATH:$GOPATH/bin
