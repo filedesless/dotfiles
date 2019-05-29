@@ -60,7 +60,7 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
 
     -- quit, or restart
     , ((modMask .|. shiftMask, xK_q     ), io (exitWith ExitSuccess)) -- %! Quit xmonad
-    , ((modMask              , xK_q     ), spawn "if type xmonad; then xmonad --recompile && xmonad --restart; else xmessage xmonad not in \\$PATH: \"$PATH\"; fi") -- %! Restart xmonad
+    , ((modMask              , xK_q     ), spawn "if type xmonad; then xmonad --recompile && pkill xmobar && xmonad --restart; else xmessage xmonad not in \\$PATH: \"$PATH\"; fi") -- %! Restart xmonad
 
     , ((modMask .|. shiftMask, xK_slash ), helpCommand) -- %! Run xmessage with a summary of the default keybindings (useful for beginners)
     -- repeat the binding for non-American layout keyboards
@@ -117,7 +117,9 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
     switchLayout = "setxkbmap -query | egrep -q \"layout:\\s+us\" "
       ++ " && setxkbmap -layout ca || setxkbmap -layout us"
 
-main = xmonad =<< topBar =<< bottomBar defaultConfig
+main = do
+  spawn "xmobar ~/.xmobar/.bottombarrc"
+  xmonad =<< topBar defaultConfig
          { manageHook = manageDocks <+> manageHook defaultConfig
          , layoutHook = avoidStruts layout
          , modMask = myModMask
@@ -131,7 +133,6 @@ main = xmonad =<< topBar =<< bottomBar defaultConfig
          }
   where
     topBar = statusBar "xmobar ~/.xmobar/.topbarrc" xmobarPP toggleStrutsKey
-    bottomBar = statusBar "xmobar ~/.xmobar/.bottombarrc" xmobarPP toggleStrutsKey
     toggleStrutsKey XConfig{modMask = modm} = (modm, xK_b)
     myWorkspaces = ["1:term", "2:web", "3:mail", "4:media" ]
 
