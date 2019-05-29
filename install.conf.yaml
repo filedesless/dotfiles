@@ -27,3 +27,6 @@
 
     # git
     ~/.gitignore: git/gitignore
+
+- shell:
+    - mkdir -p ~/.oh-my-zsh/cache

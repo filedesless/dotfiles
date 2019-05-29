@@ -8,8 +8,10 @@
 
 - link:
     # xmonad & xmobar
-    ~/.xmobarrc: xmobar/xmobarrc
+    ~/.xmobar/.bottombarrc: xmobar/bottombarrc
+    ~/.xmobar/.topbarrc: xmobar/topbarrc
     ~/.xmonad/xmonad.hs: xmonad/xmonad.hs
+    ~/.wallpapers/wall.jpg: nix/wall.jpg
 
     # notes
     ~/notes.md: nix/notes.md

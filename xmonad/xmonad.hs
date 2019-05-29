@@ -5,6 +5,8 @@ import XMonad.Layout.Spacing
 import XMonad.Layout.Gaps
 import XMonad.Actions.DynamicWorkspaces
 import XMonad.Actions.CopyWindow(copy)
+import XMonad.Config.Desktop
+import XMonad.Hooks.WallpaperSetter
 import qualified Data.Map as M
 import qualified XMonad.StackSet as W
 import System.Exit
@@ -58,7 +60,7 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
 
     -- quit, or restart
     , ((modMask .|. shiftMask, xK_q     ), io (exitWith ExitSuccess)) -- %! Quit xmonad
-    , ((modMask              , xK_q     ), spawn "if type xmonad; then xmonad --recompile && xmonad --restart; else xmessage xmonad not in \\$PATH: \"$PATH\"; fi") -- %! Restart xmonad
+    , ((modMask              , xK_q     ), spawn "if type xmonad; then xmonad --recompile && pkill xmobar && xmonad --restart; else xmessage xmonad not in \\$PATH: \"$PATH\"; fi") -- %! Restart xmonad
 
     , ((modMask .|. shiftMask, xK_slash ), helpCommand) -- %! Run xmessage with a summary of the default keybindings (useful for beginners)
     -- repeat the binding for non-American layout keyboards
@@ -70,6 +72,7 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
     [((m .|. modMask, k), windows $ f i)
         | (i, k) <- zip (XMonad.workspaces conf) [xK_1 .. xK_9]
         , (f, m) <- [(W.greedyView, 0), (W.shift, shiftMask)]]
+
 
 
     ++
@@ -105,21 +108,33 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
     , ((modMask .|. controlMask, xK_j), spawn "amixer -q set Master 10%-")
       -- Increase volume.
     , ((modMask .|. controlMask, xK_k), spawn "amixer -q set Master 10%+")
+      -- Switch keyboard layout
+    , ((modMask .|. controlMask, xK_space), spawn switchLayout)
     ]
   where
     helpCommand :: X ()
     helpCommand = spawn ("echo " ++ show help ++ " | xmessage -file -")
+    switchLayout = "setxkbmap -query | egrep -q \"layout:\\s+us\" "
+      ++ " && setxkbmap -layout ca || setxkbmap -layout us"
 
-
-
-main = xmonad =<< xmobar defaultConfig
+main = do
+  spawn "xmobar ~/.xmobar/.bottombarrc"
+  xmonad =<< topBar defaultConfig
          { manageHook = manageDocks <+> manageHook defaultConfig
          , layoutHook = avoidStruts layout
          , modMask = myModMask
          , terminal = term
-         , workspaces = ["1:term", "2:web", "3:mail", "4:media" ]
+         , workspaces = myWorkspaces
          , keys = myKeys
+         , logHook = wallpaperSetter defWallpaperConf {
+             wallpapers = WallpaperList
+               [ (id, WallpaperDir "") | id <- myWorkspaces ]
+             }
          }
+  where
+    topBar = statusBar "xmobar ~/.xmobar/.topbarrc" xmobarPP toggleStrutsKey
+    toggleStrutsKey XConfig{modMask = modm} = (modm, xK_b)
+    myWorkspaces = ["1:term", "2:web", "3:mail", "4:media" ]
 
 -- | Finally, a copy of the default bindings in simple textual tabular format.
 help :: String

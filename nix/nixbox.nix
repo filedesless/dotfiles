@@ -13,43 +13,10 @@
   networking.hostName = "nixbox"; # Define your hostname.
 
   services = {
-    # Enable the X11 windowing system.
-    xserver = {
-      enable = true;
-      autorun = true;
-      layout = "us";
-      libinput.enable = true;
-      displayManager.lightdm.enable = true;
-      windowManager = {
-        default = "xmonad";
-        xmonad = {
-          enable = true;
-          enableContribAndExtras = true;
-        };
-      };
-      desktopManager = {
-        default = "xfce";
-        xfce = {
-          enable = true;
-          noDesktop = true;
-          enableXfwm = true;
-        };
-      };
-    };
-    printing.enable = true;
     openssh = {
       enable = true;
       permitRootLogin = "no";
     };
   };
-
-  environment.systemPackages = with pkgs; [
-    haskellPackages.pandoc
-    haskellPackages.xmobar
-    haskellPackages.xmonad-contrib
-    haskellPackages.xmonad-extras
-    haskellPackages.xmonad
-    i3lock rxvt_unicode
-  ];
 
 }
