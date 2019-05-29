@@ -34,7 +34,7 @@
       haskellPackages.xmonad-contrib
       haskellPackages.xmonad-extras
       haskellPackages.xmonad
-      i3lock rxvt_unicode xsecurelock
+      rxvt_unicode xsecurelock fzf
       openshift ansible ansible-lint feh imagemagick
       wget vim emacs26-nox auctex tmux git file python3 thunderbird
       firefox irssi sudo man-pages htop stack dmenu
