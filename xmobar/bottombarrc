@@ -48,7 +48,7 @@ Config { font = "-misc-fixed-*-*-*-*-14-*-*-*-*-*-*-*"
 		      , "--normal", "yellow"
 		      , "--low", "red"
 		      , "-t", "<essid>: <qualitybar>"] 10
-		    , Run Kbd [ ("us", "US") ]
+		    , Run Kbd [ ("us", "US"), ("ca", "CA")  ]
 		    ]
        , sepChar = "%"
        , alignSep = "}{"

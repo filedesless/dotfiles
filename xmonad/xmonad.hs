@@ -74,6 +74,7 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
         , (f, m) <- [(W.greedyView, 0), (W.shift, shiftMask)]]
 
 
+
     ++
     -- mod-{w,e,r} %! Switch to physical/Xinerama screens 1, 2, or 3
     -- mod-shift-{w,e,r} %! Move client to screen 1, 2, or 3
@@ -107,12 +108,14 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
     , ((modMask .|. controlMask, xK_j), spawn "amixer -q set Master 10%-")
       -- Increase volume.
     , ((modMask .|. controlMask, xK_k), spawn "amixer -q set Master 10%+")
+      -- Switch keyboard layout
+    , ((modMask .|. controlMask, xK_space), spawn switchLayout)
     ]
   where
     helpCommand :: X ()
     helpCommand = spawn ("echo " ++ show help ++ " | xmessage -file -")
-
-
+    switchLayout = "setxkbmap -query | egrep -q \"layout:\\s+us\" "
+      ++ " && setxkbmap -layout ca || setxkbmap -layout us"
 
 main = xmonad =<< topBar =<< bottomBar defaultConfig
          { manageHook = manageDocks <+> manageHook defaultConfig

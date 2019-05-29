@@ -39,7 +39,7 @@
       wget vim emacs26-nox auctex tmux git file python3 thunderbird
       firefox irssi sudo man-pages htop stack dmenu
       bat screenfetch gnumake keepassxc mpv docker evince
-      multimarkdown remmina openconnect google-chrome
+      multimarkdown remmina openconnect chromium
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
