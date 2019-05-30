@@ -20,8 +20,8 @@ Config { font = "-misc-fixed-*-*-*-*-14-*-*-*-*-*-*-*"
 					  "--normal","green",
 					  "--high","red",
 					  "--low","lightblue"] 36000
-		    , Run Cpu ["-L","3","-H","50",
-			       "--normal","green","--high","red"] 10
+		    , Run MultiCpu ["-t", "<autobar>", "-L","3","-H",
+				    "50","--normal","green","--high","red"] 10
 		    , Run Memory ["-t","Mem: <usedratio>%"] 10
 		    , Run Swap [] 10
 		    , Run DiskU [("/", "<used> / <size>")]
@@ -34,5 +34,5 @@ Config { font = "-misc-fixed-*-*-*-*-14-*-*-*-*-*-*-*"
 		    ]
        , sepChar = "%"
        , alignSep = "}{"
-       , template = "%StdinReader% }{ %cpu% | %memory% * %swap% | du: %disku% | %default:Master% | %CYQB% | %date%  "
+       , template = "%StdinReader% }{ %multicpu% | %memory% * %swap% | du: %disku% | %default:Master% | %CYQB% | %date%  "
        }
