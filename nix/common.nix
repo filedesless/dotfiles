@@ -10,6 +10,8 @@
       ./hardware-configuration.nix
     ];
 
+  boot.tmpOnTmpfs = true;
+
   #networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
   # Configure network proxy if necessary
@@ -34,7 +36,7 @@
       haskellPackages.xmonad-contrib
       haskellPackages.xmonad-extras
       haskellPackages.xmonad
-      rxvt_unicode xsecurelock fzf
+      rxvt_unicode xsecurelock fzf youtube-dl
       openshift ansible ansible-lint feh imagemagick
       wget vim emacs26-nox auctex tmux git file python3 thunderbird
       firefox irssi sudo man-pages htop stack dmenu
@@ -110,8 +112,11 @@
   };
 
   # Nix auto garbage collection
-  nix.gc.automatic = true;
   nix.optimise.automatic = true;
+
+  # Auto GC every morning
+  nix.gc.automatic = true;
+  nix.gc.options = "--delete-older-than 14d";
 
   # Nix auto upgrade
   system.autoUpgrade.enable = true;
