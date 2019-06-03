@@ -36,12 +36,12 @@
       haskellPackages.xmonad-contrib
       haskellPackages.xmonad-extras
       haskellPackages.xmonad
-      rxvt_unicode xsecurelock fzf youtube-dl
+      rxvt_unicode xsecurelock fzf youtube-dl gmrun
       openshift ansible ansible-lint feh imagemagick
       wget vim emacs26-nox auctex tmux git file python3 thunderbird
       firefox irssi sudo man-pages htop stack dmenu
       bat screenfetch gnumake keepassxc mpv docker evince
-      multimarkdown remmina openconnect chromium
+      multimarkdown remmina openconnect chromium go
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
