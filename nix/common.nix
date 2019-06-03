@@ -42,7 +42,7 @@
       firefox irssi sudo man-pages htop stack dmenu
       bat screenfetch gnumake keepassxc mpv docker evince
       multimarkdown remmina openconnect chromium
-      go gotools godef gocode docker-compose
+      go gotools godef gocode golangci-lint docker-compose
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
