@@ -28,5 +28,8 @@
     # git
     ~/.gitignore: git/gitignore
 
+    # tmux
+    ~/.tmux.conf: tmux/tmux.conf
+
 - shell:
     - mkdir -p ~/.oh-my-zsh/cache
