@@ -1,18 +1,16 @@
-;; opposite of C-x o
-(global-set-key (kbd "\C-x\p") 'previous-multiframe-window)
+;;; .emacs -- my emacs conf
+;;; Commentary:
 
+;;; Code:
+;; opposite of C-x o
+(global-set-key (kbd "C-x p") 'previous-multiframe-window)
 
 ;; add melpa package repo
 (require 'package)
-(let* ((no-ssl (and (memq system-type '(windows-nt ms-dos))
-		    (not (gnutls-available-p))))
-       (proto (if no-ssl "http" "https")))
-  ;; Comment/uncomment these two lines to enable/disable MELPA and MELPA Stable as desired
-  (add-to-list 'package-archives (cons "melpa" (concat proto "://melpa.org/packages/")) t)
-  ;;(add-to-list 'package-archives (cons "melpa-stable" (concat proto "://stable.melpa.org/packages/")) t)
-  (when (< emacs-major-version 24)
-    ;; For important compatibility libraries like cl-lib
-    (add-to-list 'package-archives (cons "gnu" (concat proto "://elpa.gnu.org/packages/")))))
+(setq package-enable-at-startup nil)
+(add-to-list 'package-archives
+	     '("melpa" . "https://melpa.org/packages/"))
+
 (package-initialize)
 
 (custom-set-variables
@@ -22,7 +20,7 @@
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-    (moe-theme rust-mode nix-mode nixos-options auctex git dracula-theme haskell-mode haskell-emacs go-mode vmd-mode markdown-preview-eww markdown-preview-mode markdown-mode+ markdown-mode yaml-mode)))
+    (go-complete moe-theme rust-mode nix-mode nixos-options auctex git dracula-theme haskell-mode haskell-emacs go-mode vmd-mode markdown-preview-eww markdown-preview-mode markdown-mode+ markdown-mode yaml-mode)))
  '(vc-follow-symlinks nil))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
@@ -31,7 +29,7 @@
  ;; If there is more than one, they won't work right.
  )
 
-;; yaml mode
+;; Yaml mode
 (require 'yaml-mode)
 (add-to-list 'auto-mode-alist '("\\.yml\\'" . yaml-mode))
 
@@ -46,12 +44,25 @@
 (menu-bar-mode -1)
 
 (global-linum-mode 1)
-(setq linum-format "%4d\u2502")
 
 (add-to-list 'auto-mode-alist '("emacs$" . emacs-lisp-mode))
 (add-to-list 'auto-mode-alist '("\\.*rc$" . conf-unix-mode))
+
+;; FlyCheck (error checking, and error checking checking)
+(add-hook 'after-init-hook #'global-flycheck-mode)
+
+;; provides type info at cursor
+(require 'go-eldoc)
+(add-hook 'go-mode-hook 'go-eldoc-setup)
+
+;; provides completions on M-tab
+(require 'go-complete)
+(add-hook 'completion-at-point-functions 'go-complete-at-point)
 
 ;(require 'moe-theme)
 ;(moe-dark)
 
 (add-hook 'before-save-hook 'whitespace-cleanup)
+
+(provide '.emacs)
+;;; .emacs ends here
