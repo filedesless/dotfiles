@@ -11,6 +11,8 @@
   boot.loader.grub.device = "/dev/sda";
 
   networking.hostName = "nixbox"; # Define your hostname.
+  virtualisation.libvirtd.enable = true;
+  users.users.filedesless.extraGroups = [ "libvirtd" ];
 
   services = {
     openssh = {
