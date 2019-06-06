@@ -39,7 +39,7 @@
 
 
   environment.systemPackages = with pkgs; [
-    bluedevil wirelesstools
+    bluedevil wirelesstools wireshark sshpass
   ];
 
 }
