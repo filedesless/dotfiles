@@ -17,6 +17,27 @@
   networking.hostName = "nixpad"; # Define your hostname.
   networking.networkmanager.enable = true;
 
+  system.activationScripts = {
+    mkpub = {
+      text= "mkdir -p /srv/pub";
+      deps = [];
+    };
+  };
+
+  services.samba = {
+    enable = true;
+    shares = {
+      public = {
+        browseable = "yes";
+        comment = "Public samba share";
+        "guest ok" = "yes";
+        path = "/srv/pub";
+        "read only" = true;
+      };
+    };
+  };
+
+
   environment.systemPackages = with pkgs; [
     bluedevil wirelesstools
   ];
