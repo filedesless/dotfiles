@@ -5,7 +5,6 @@ import XMonad.Layout.Spacing
 import XMonad.Layout.Gaps
 import XMonad.Actions.DynamicWorkspaces
 import XMonad.Actions.CopyWindow(copy)
-import XMonad.Config.Desktop
 import XMonad.Hooks.WallpaperSetter
 import qualified Data.Map as M
 import qualified XMonad.StackSet as W

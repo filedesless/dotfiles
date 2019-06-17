@@ -39,7 +39,7 @@
       rxvt_unicode xsecurelock fzf youtube-dl gmrun
       openshift ansible ansible-lint feh imagemagick
       wget vim emacs26-nox auctex tmux git file python3 thunderbird
-      firefox irssi sudo man-pages htop stack dmenu
+      firefox irssi sudo man-pages htop dmenu direnv
       bat screenfetch gnumake keepassxc mpv docker evince
       multimarkdown remmina openconnect chromium
       go gotools godef gocode golangci-lint docker-compose
