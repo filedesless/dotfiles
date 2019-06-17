@@ -61,8 +61,6 @@ ZSH_THEME="bureau-filedesless"
 plugins=(
   golang
   git
-  kubectl
-  oc
 )
 
 source $ZSH/oh-my-zsh.sh
@@ -107,6 +105,10 @@ if [ $(uname -s) = "Darwin" ]; then
   export MAKEFLAGS="$MAKEFLAGS -j$(sysctl -n hw.ncpu)"
   source /usr/local/share/zsh-autosuggestions/zsh-autosuggestions.zsh
   export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=cyan"
+  export FZF_DEFAULT_COMMAND='fd --type f --exclude .git --exclude Library --exclude node_modules'
+  export FZF_ALT_C_COMMAND='fd --type d --exclude .git --exclude Library --exclude node_modules'
+  export FZF_CTRL_T_COMMAND='fd --type f --exclude .git --exclude Library --exclude node_modules'
+  source ~/.nix-profile/etc/profile.d/nix.sh
 fi
 
 export GPG_TTY=$(tty)
