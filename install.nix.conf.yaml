@@ -10,7 +10,7 @@
     # xmonad & xmobar
     ~/.xmobar/.bottombarrc: xmobar/bottombarrc
     ~/.xmobar/.topbarrc: xmobar/topbarrc
-    ~/.xmonad/xmonad.hs: xmonad/xmonad.hs
+    ~/.xmonad/xmonad.hs: xmonad/xmonadrc.hs
     ~/.wallpapers/wall.jpg: nix/wall.jpg
 
     # notes
