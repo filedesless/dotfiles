@@ -17,7 +17,7 @@ build-type:          Simple
 extra-source-files:  CHANGELOG.md
 
 executable xmonadrc
-  main-is:             xmonad.hs
+  main-is:             xmonadrc.hs
   -- other-modules:
   -- other-extensions:
   build-depends:       base >=4.12 && <4.13,
