@@ -10,11 +10,14 @@ import qualified Data.Map as M
 import qualified XMonad.StackSet as W
 import System.Exit
 
+term :: String
 term = "urxvt -bg black -tr -fg white -fn \"xft:Droid Sans Mono:pixelsize=15\" +sb -sh 25"
+
 --layout = avoidStruts $ layoutHook defaultConfig
 layout = spacingRaw True (Border 10 10 10 10) True (Border 10 10 10 10) True $
   gaps [(U,10), (R,10), (L,10), (D,10)] $ Tall 1 (1/2) (1/2) ||| Full
 
+myModMask :: KeyMask
 myModMask = mod4Mask
 
 -- | The xmonad key bindings. Add, modify or remove key bindings here.
@@ -22,7 +25,7 @@ myModMask = mod4Mask
 -- (The comment formatting character is used when generating the manpage)
 --
 myKeys :: XConfig Layout -> M.Map (KeyMask, KeySym) (X ())
-myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
+myKeys conf@XConfig {XMonad.modMask = modMask} = M.fromList $
     -- launching and killing programs
     [ ((modMask .|. shiftMask, xK_Return), spawn $ XMonad.terminal conf) -- %! Launch terminal
     , ((modMask,               xK_p     ), spawn "dmenu_run") -- %! Launch dmenu
@@ -58,7 +61,7 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
     , ((modMask              , xK_period), sendMessage (IncMasterN (-1))) -- %! Deincrement the number of windows in the master area
 
     -- quit, or restart
-    , ((modMask .|. shiftMask, xK_q     ), io (exitWith ExitSuccess)) -- %! Quit xmonad
+    , ((modMask .|. shiftMask, xK_q     ), io exitSuccess) -- %! Quit xmonad
     , ((modMask              , xK_q     ), spawn "if type xmonad; then xmonad --recompile && pkill xmobar && xmonad --restart; else xmessage xmonad not in \\$PATH: \"$PATH\"; fi") -- %! Restart xmonad
 
     , ((modMask .|. shiftMask, xK_slash ), helpCommand) -- %! Run xmessage with a summary of the default keybindings (useful for beginners)
@@ -94,8 +97,8 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
 
     -- mod-[1..9]       %! Switch to workspace N in the list of workspaces
     -- mod-shift-[1..9] %! Move client to workspace N in the list of workspaces
-    let f c = (map (withNthWorkspace c) [0..]) in
-      zip (zip (repeat (modMask)) [xK_1..xK_9]) (f W.greedyView)
+    let f c = map (withNthWorkspace c) [0..] in
+      zip (zip (repeat modMask) [xK_1..xK_9]) (f W.greedyView)
       ++
       zip (zip (repeat (modMask .|. shiftMask)) [xK_1..xK_9]) (f W.shift)
 
@@ -112,14 +115,15 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
     ]
   where
     helpCommand :: X ()
-    helpCommand = spawn ("echo " ++ show help ++ " | xmessage -file -")
+    helpCommand = spawn ("echo -e " ++ show help ++ " | xmessage -file -")
     switchLayout = "setxkbmap -query | egrep -q \"layout:\\s+us\" "
       ++ " && setxkbmap -layout ca || setxkbmap -layout us"
 
+main :: IO ()
 main = do
   spawn "xmobar ~/.xmobar/.bottombarrc"
-  xmonad =<< topBar defaultConfig
-         { manageHook = manageDocks <+> manageHook defaultConfig
+  xmonad =<< topBar def
+         { manageHook = manageDocks <+> manageHook def
          , layoutHook = avoidStruts layout
          , modMask = myModMask
          , terminal = term
@@ -127,7 +131,7 @@ main = do
          , keys = myKeys
          , logHook = wallpaperSetter defWallpaperConf {
              wallpapers = WallpaperList
-               [ (id, WallpaperDir "") | id <- myWorkspaces ]
+               [ (workspace, WallpaperDir "") | workspace <- myWorkspaces ]
              }
          }
   where
