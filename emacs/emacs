@@ -18,6 +18,7 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(haskell-process-type (quote cabal-new-repl))
  '(inhibit-default-init t)
  '(inhibit-startup-buffer-menu t)
  '(inhibit-startup-echo-area-message nil)
@@ -44,7 +45,7 @@
 (require 'haskell-interactive-mode)
 (require 'haskell-process)
 (add-hook 'haskell-mode-hook 'interactive-haskell-mode)
-(custom-set-variables '(haskell-process-type 'cabal-new-repl))
+
 
 
 (menu-bar-mode -1)
@@ -112,6 +113,8 @@
 ;; magit
 (require 'magit)
 (global-set-key (kbd "C-x g") 'magit-status)
+
+(load-theme 'misterioso)
 
 
 (provide '.emacs)
