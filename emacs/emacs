@@ -3,30 +3,28 @@
 
 ;;; Code:
 ;; opposite of C-x o
-(global-set-key (kbd "C-x p") 'previous-multiframe-window)
 
-;; add melpa package repo
-(require 'package)
-(setq package-enable-at-startup nil)
-(add-to-list 'package-archives
-	     '("melpa-stable" . "https://stable.melpa.org/packages/"))
-
-(package-initialize)
+(require 'org)
+(require 'ob-tangle)
+(org-babel-load-file "~/src/dotfiles/emacs/config.org")
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(custom-safe-themes
+   (quote
+    ("e61752b5a3af12be08e99d076aedadd76052137560b7e684a8be2f8d2958edc3" "274fa62b00d732d093fc3f120aca1b31a6bb484492f31081c1814a858e25c72e" "13d20048c12826c7ea636fbe513d6f24c0d43709a761052adbca052708798ce3" "26d49386a2036df7ccbe802a06a759031e4455f07bda559dcf221f53e8850e69" default)))
  '(haskell-process-type (quote cabal-new-repl))
  '(inhibit-default-init t)
  '(inhibit-startup-buffer-menu t)
  '(inhibit-startup-echo-area-message nil)
  '(inhibit-startup-screen t)
- '(org-export-backends (quote (ascii beamer html icalendar latex odt s5)))
+ '(org-export-backends (quote (ascii beamer html icalendar latex odt s5 twbs)))
  '(package-selected-packages
    (quote
-    (htmlize magit smex flycheck-elm elm-mode highlight-indentation pylint go-eldoc flycheck-golangci-lint go-complete moe-theme rust-mode nix-mode nixos-options auctex git dracula-theme haskell-mode haskell-emacs go-mode vmd-mode markdown-preview-eww markdown-preview-mode markdown-mode+ markdown-mode yaml-mode)))
+    (pdf-tools powerline ox-twbs htmlize magit smex flycheck-elm elm-mode highlight-indentation pylint go-eldoc flycheck-golangci-lint go-complete moe-theme rust-mode nix-mode nixos-options auctex git dracula-theme haskell-mode haskell-emacs go-mode vmd-mode markdown-preview-eww markdown-preview-mode markdown-mode+ markdown-mode yaml-mode)))
  '(vc-follow-symlinks nil))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
@@ -46,14 +44,6 @@
 (require 'haskell-interactive-mode)
 (require 'haskell-process)
 (add-hook 'haskell-mode-hook 'interactive-haskell-mode)
-
-
-
-(menu-bar-mode -1)
-(tool-bar-mode 0)
-
-(add-to-list 'auto-mode-alist '("emacs$" . emacs-lisp-mode))
-(add-to-list 'auto-mode-alist '("\\.*rc$" . conf-unix-mode))
 
 (require 'linum)
 (setq linum-format "%4d \u2502 ")
@@ -83,9 +73,6 @@
 )
 (add-hook 'go-mode-hook 'my-go-mode-hook)
 
-;; whitespace clean on save
-(add-hook 'before-save-hook 'whitespace-cleanup)
-
 (require 'python)
 (setq python-shell-interpreter "python3")
 
@@ -104,7 +91,6 @@
 ;; idomenu
 (autoload 'idomenu "idomenu" nil t)
 
-(setq backup-directory-alist '(("." . "~/.emacs_save")))
 
 (smex-initialize)
 (global-set-key (kbd "M-x") 'smex)
@@ -121,7 +107,30 @@
  'org-babel-load-languages
  '(
    (python . t)
+   (haskell . t)
    ))
+
+;; powerline
+(require 'powerline)
+(powerline-default-theme)
+
+;; fixing path
+(if (string-equal "darwin" (symbol-name system-type))
+    (setenv "PATH" (concat "/usr/local/bin:/usr/local/sbin:/Library/TeX/texbin:"
+			   (getenv "PATH"))))
+
+;; pdf-tools
+(pdf-loader-install)
+
+;; disable linum for certain modes
+(add-hook 'term-mode-hook 'my-inhibit-global-linum-mode)
+(add-hook 'pdf-view-mode-hook 'my-inhibit-global-linum-mode)
+(defun my-inhibit-global-linum-mode ()
+  "Counter-act function `global-linum-mode'."
+  (add-hook 'after-change-major-mode-hook
+	    (lambda () (linum-mode 0))
+	    :append :local))
+
 
 
 (provide '.emacs)
