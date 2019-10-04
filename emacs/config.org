@@ -57,3 +57,28 @@ show matching parens
 
       (package-initialize)
     #+END_SRC
+
+*** Evil mode
+    #+BEGIN_SRC emacs-lisp
+      (require 'evil)
+      (evil-mode 1)
+      (setq evil-normal-state-cursor'("red" box))
+      (setq evil-emacs-state-cursor'("gold" box))
+      (setq evil-want-C-d-scroll t)
+      (setq evil-want-C-u-scroll t)
+    #+END_SRC
+
+    #+RESULTS:
+    : t
+
+*** Relative line number
+    #+BEGIN_SRC emacs-lisp
+      (require 'linum-relative)
+      (setq linum-relative-format "%3s \u2502 ")
+      (setq linum-relative-current-symbol "λ")
+      (global-linum-mode t)
+      (linum-relative-on)
+    #+END_SRC
+
+    #+RESULTS:
+    : t
