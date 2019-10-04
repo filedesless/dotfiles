@@ -8,6 +8,7 @@
     #+BEGIN_SRC emacs-lisp
       (global-set-key (kbd "C-x p") 'previous-multiframe-window)
     #+END_SRC
+
 *** UI stuff
     Remove clunky icons and make cursor visible
     #+BEGIN_SRC emacs-lisp
@@ -15,27 +16,38 @@
       (tool-bar-mode 0)
       (set-cursor-color "lightgrey")
     #+END_SRC
+
 *** Theme
     Some nice dark theme
     #+BEGIN_SRC emacs-lisp
       (load-theme 'misterioso)
     #+END_SRC
+
 *** Modes
     Filetype-based modes for emacs-lisp and unix configs
     #+BEGIN_SRC emacs-lisp
       (add-to-list 'auto-mode-alist '("emacs$" . emacs-lisp-mode))
       (add-to-list 'auto-mode-alist '("\\.*rc$" . conf-unix-mode))
     #+END_SRC
+
+*** Theme
+    some nice dark theme
+    #+BEGIN_SRC emacs-lisp
+      (load-theme 'misterioso)
+    #+END_SRC
+
 *** Whitespace cleanup on save
     Avoid clutter like trailing whitespaces
     #+BEGIN_SRC emacs-lisp
       (add-hook 'before-save-hook 'whitespace-cleanup)
     #+END_SRC
+
 *** Custom backup directory
     Save all emacs backups~ to a single directory (also avoiding clutter)
     #+BEGIN_SRC emacs-lisp
       (setq backup-directory-alist '(("." . "~/.emacs_save")))
     #+END_SRC
+
 *** Match parens
     Show matching parens
     #+BEGIN_SRC emacs-lisp
@@ -52,4 +64,23 @@
       '("melpa-stable" . "https://stable.melpa.org/packages/"))
 
       (package-initialize)
+    #+END_SRC
+
+*** Evil mode
+    #+BEGIN_SRC emacs-lisp
+      (setq evil-want-C-d-scroll t)
+      (setq evil-want-C-u-scroll t)
+      (require 'evil)
+      (evil-mode 1)
+      (setq evil-normal-state-cursor'("red" box))
+      (setq evil-emacs-state-cursor'("gold" box))
+    #+END_SRC
+
+*** Relative line number
+    #+BEGIN_SRC emacs-lisp
+      (require 'linum-relative)
+      (setq linum-relative-format "%3s \u2502 ")
+      (setq linum-relative-current-symbol "λ")
+      (global-linum-mode t)
+      (linum-relative-on)
     #+END_SRC

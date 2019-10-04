@@ -24,7 +24,7 @@
  '(org-export-backends (quote (ascii beamer html icalendar latex odt s5 twbs)))
  '(package-selected-packages
    (quote
-    (powershell pdf-tools powerline ox-twbs htmlize magit smex flycheck-elm elm-mode highlight-indentation pylint go-eldoc flycheck-golangci-lint go-complete moe-theme rust-mode nix-mode nixos-options auctex git dracula-theme haskell-mode haskell-emacs go-mode vmd-mode markdown-preview-eww markdown-preview-mode markdown-mode+ markdown-mode yaml-mode)))
+    (linum-relative evil powershell pdf-tools powerline ox-twbs htmlize magit smex flycheck-elm elm-mode highlight-indentation pylint go-eldoc flycheck-golangci-lint go-complete moe-theme rust-mode nix-mode nixos-options auctex git dracula-theme haskell-mode haskell-emacs go-mode vmd-mode markdown-preview-eww markdown-preview-mode markdown-mode+ markdown-mode yaml-mode)))
  '(vc-follow-symlinks nil))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
@@ -44,10 +44,6 @@
 (require 'haskell-interactive-mode)
 (require 'haskell-process)
 (add-hook 'haskell-mode-hook 'interactive-haskell-mode)
-
-(require 'linum)
-(setq linum-format "%4d \u2502 ")
-(global-linum-mode 1)
 
 ;; provides type info at cursor
 (require 'go-eldoc)
