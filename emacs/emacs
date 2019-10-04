@@ -24,7 +24,7 @@
  '(org-export-backends (quote (ascii beamer html icalendar latex odt s5 twbs)))
  '(package-selected-packages
    (quote
-    (pdf-tools powerline ox-twbs htmlize magit smex flycheck-elm elm-mode highlight-indentation pylint go-eldoc flycheck-golangci-lint go-complete moe-theme rust-mode nix-mode nixos-options auctex git dracula-theme haskell-mode haskell-emacs go-mode vmd-mode markdown-preview-eww markdown-preview-mode markdown-mode+ markdown-mode yaml-mode)))
+    (powershell pdf-tools powerline ox-twbs htmlize magit smex flycheck-elm elm-mode highlight-indentation pylint go-eldoc flycheck-golangci-lint go-complete moe-theme rust-mode nix-mode nixos-options auctex git dracula-theme haskell-mode haskell-emacs go-mode vmd-mode markdown-preview-eww markdown-preview-mode markdown-mode+ markdown-mode yaml-mode)))
  '(vc-follow-symlinks nil))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
@@ -108,6 +108,7 @@
  '(
    (python . t)
    (haskell . t)
+   (shell . t)
    ))
 
 ;; powerline

@@ -2,46 +2,49 @@
 #+OPTIONS: toc:3
 
 * Old file
-** general configurations
-*** opposite of C-x o
-    cycle through frames counter-clockwise
+** General configurations
+*** C-x p; the opposite of C-x o
+    Cycle through frames counter-clockwise
     #+BEGIN_SRC emacs-lisp
       (global-set-key (kbd "C-x p") 'previous-multiframe-window)
     #+END_SRC
-*** ui stuff
-    remove clunky icons
+*** UI stuff
+    Remove clunky icons and make cursor visible
     #+BEGIN_SRC emacs-lisp
       (menu-bar-mode 1)
       (tool-bar-mode 0)
+      (set-cursor-color "lightgrey")
     #+END_SRC
-*** theme
-    some nice dark theme
+*** Theme
+    Some nice dark theme
     #+BEGIN_SRC emacs-lisp
       (load-theme 'misterioso)
     #+END_SRC
-*** mods
-    filetype-based mods for emacs-lisp and unix configs
+*** Modes
+    Filetype-based modes for emacs-lisp and unix configs
     #+BEGIN_SRC emacs-lisp
       (add-to-list 'auto-mode-alist '("emacs$" . emacs-lisp-mode))
       (add-to-list 'auto-mode-alist '("\\.*rc$" . conf-unix-mode))
     #+END_SRC
-*** whitespace cleanup on save
-avoid whitespace clutter
+*** Whitespace cleanup on save
+    Avoid clutter like trailing whitespaces
     #+BEGIN_SRC emacs-lisp
       (add-hook 'before-save-hook 'whitespace-cleanup)
     #+END_SRC
-*** custom backup directory
-save all emacs backups~ to a single directory
+*** Custom backup directory
+    Save all emacs backups~ to a single directory (also avoiding clutter)
     #+BEGIN_SRC emacs-lisp
       (setq backup-directory-alist '(("." . "~/.emacs_save")))
     #+END_SRC
-*** match parens
-show matching parens
+*** Match parens
+    Show matching parens
     #+BEGIN_SRC emacs-lisp
       (show-paren-mode 1)
     #+END_SRC
-** add melpa package repo
-*** default package
+
+** Packages
+*** Default package repository
+    Use MELPA stable to fetch new packages
     #+BEGIN_SRC emacs-lisp
       (require 'package)
       (setq package-enable-at-startup nil)
