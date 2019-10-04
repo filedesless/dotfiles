@@ -8,38 +8,45 @@
     #+BEGIN_SRC emacs-lisp
       (global-set-key (kbd "C-x p") 'previous-multiframe-window)
     #+END_SRC
+
 *** ui stuff
     remove clunky icons
     #+BEGIN_SRC emacs-lisp
       (menu-bar-mode 1)
       (tool-bar-mode 0)
     #+END_SRC
+
 *** theme
     some nice dark theme
     #+BEGIN_SRC emacs-lisp
       (load-theme 'misterioso)
     #+END_SRC
+
 *** mods
     filetype-based mods for emacs-lisp and unix configs
     #+BEGIN_SRC emacs-lisp
       (add-to-list 'auto-mode-alist '("emacs$" . emacs-lisp-mode))
       (add-to-list 'auto-mode-alist '("\\.*rc$" . conf-unix-mode))
     #+END_SRC
+
 *** whitespace cleanup on save
 avoid whitespace clutter
     #+BEGIN_SRC emacs-lisp
       (add-hook 'before-save-hook 'whitespace-cleanup)
     #+END_SRC
+
 *** custom backup directory
 save all emacs backups~ to a single directory
     #+BEGIN_SRC emacs-lisp
       (setq backup-directory-alist '(("." . "~/.emacs_save")))
     #+END_SRC
+
 *** match parens
 show matching parens
     #+BEGIN_SRC emacs-lisp
       (show-paren-mode 1)
     #+END_SRC
+
 ** add melpa package repo
 *** default package
     #+BEGIN_SRC emacs-lisp
