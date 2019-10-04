@@ -33,18 +33,6 @@
  ;; If there is more than one, they won't work right.
  )
 
-;; Yaml mode
-(require 'yaml-mode)
-(add-to-list 'auto-mode-alist '("\\.yml\\'" . yaml-mode))
-
-(add-hook 'yaml-mode-hook
-    '(lambda ()
-       (define-key yaml-mode-map "\C-m" 'newline-and-indent)))
-
-(require 'haskell-interactive-mode)
-(require 'haskell-process)
-(add-hook 'haskell-mode-hook 'interactive-haskell-mode)
-
 ;; provides type info at cursor
 (require 'go-eldoc)
 (add-hook 'go-mode-hook 'go-eldoc-setup)

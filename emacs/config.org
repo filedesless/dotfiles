@@ -67,6 +67,7 @@
     #+END_SRC
 
 *** Evil mode
+    Emacs VI Layer, for vim bindings
     #+BEGIN_SRC emacs-lisp
       (setq evil-want-C-d-scroll t)
       (setq evil-want-C-u-scroll t)
@@ -77,10 +78,30 @@
     #+END_SRC
 
 *** Relative line number
+    Shows relative line numbers on the leftbar
     #+BEGIN_SRC emacs-lisp
       (require 'linum-relative)
       (setq linum-relative-format "%3s \u2502 ")
       (setq linum-relative-current-symbol "λ")
       (global-linum-mode t)
       (linum-relative-on)
+    #+END_SRC
+
+*** YAML Mode
+    Provides syntax highlighting and helper for YAML files
+    #+BEGIN_SRC emacs-lisp
+      (require 'yaml-mode)
+      (add-to-list 'auto-mode-alist '("\\.yml\\'" . yaml-mode))
+
+      (add-hook 'yaml-mode-hook
+	  '(lambda ()
+	     (define-key yaml-mode-map "\C-m" 'newline-and-indent)))
+    #+END_SRC
+
+*** Interactive Haskell Mode
+    Gives a Haskell REPL when editing haskell files
+    #+BEGIN_SRC emacs-lisp
+      (require 'haskell-interactive-mode)
+      (require 'haskell-process)
+      (add-hook 'haskell-mode-hook 'interactive-haskell-mode)
     #+END_SRC
