@@ -2,7 +2,6 @@
 ;;; Commentary:
 
 ;;; Code:
-;; opposite of C-x o
 
 (require 'org)
 (require 'ob-tangle)
@@ -33,88 +32,10 @@
  ;; If there is more than one, they won't work right.
  )
 
-;; provides type info at cursor
-(require 'go-eldoc)
-(add-hook 'go-mode-hook 'go-eldoc-setup)
-
-;; provides completions on M-tab
-(require 'go-complete)
-(add-hook 'completion-at-point-functions 'go-complete-at-point)
-
-;; gofmt on save
-(defun my-go-mode-hook ()
-  "Use goimports instead of go-fmt."
-  (setq gofmt-command "goimports")
-  ; Call Gofmt before saving
-  (add-hook 'before-save-hook 'gofmt-before-save)
-  ; Customize compile command to run go build
-  (if (not (string-match "go" compile-command))
-      (set (make-local-variable 'compile-command)
-	   "go build -v && go test -v && go vet"))
-  ; Godef jump key binding
-  (local-set-key (kbd "M-.") 'godef-jump)
-  (local-set-key (kbd "M-*") 'pop-tag-mark)
-)
-(add-hook 'go-mode-hook 'my-go-mode-hook)
-
-(require 'python)
-(setq python-shell-interpreter "python3")
-
-;; FlyCheck (error checking, and error checking checking)
-(require 'flycheck)
-(setq flycheck-python-pycompile-executable "python3")
-(add-hook 'after-init-hook #'global-flycheck-mode)
-(eval-after-load 'flycheck
-  '(add-hook 'flycheck-mode-hook #'flycheck-golangci-lint-setup))
-
-
-;; ido
-(require 'ido)
-(ido-mode 1)
-(setq ido-enable-flex-matching t) ;; enable fuzzy matching
-;; idomenu
-(autoload 'idomenu "idomenu" nil t)
-
-
-(smex-initialize)
-(global-set-key (kbd "M-x") 'smex)
-(global-set-key (kbd "M-X") 'smex-major-mode-commands)
-(global-set-key (kbd "C-c C-c M-x") 'execute-extended-command)
-
-;; magit
-(require 'magit)
-(global-set-key (kbd "C-x g") 'magit-status)
-
-(load-theme 'misterioso)
-
-(org-babel-do-load-languages
- 'org-babel-load-languages
- '(
-   (python . t)
-   (haskell . t)
-   (shell . t)
-   ))
-
-;; powerline
-(require 'powerline)
-(powerline-default-theme)
-
 ;; fixing path
 (if (string-equal "darwin" (symbol-name system-type))
     (setenv "PATH" (concat "/usr/local/bin:/usr/local/sbin:/Library/TeX/texbin:"
 			   (getenv "PATH"))))
-
-;; pdf-tools
-(pdf-loader-install)
-
-;; disable linum for certain modes
-(add-hook 'term-mode-hook 'my-inhibit-global-linum-mode)
-(add-hook 'pdf-view-mode-hook 'my-inhibit-global-linum-mode)
-(defun my-inhibit-global-linum-mode ()
-  "Counter-act function `global-linum-mode'."
-  (add-hook 'after-change-major-mode-hook
-	    (lambda () (linum-mode 0))
-	    :append :local))
 
 
 
