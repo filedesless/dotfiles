@@ -94,14 +94,23 @@
 
 ** Packages
 *** Default package repository
-    Use MELPA stable to fetch new packages
+    Use MELPA stable to fetch new packages, and ensure they are installed
     #+BEGIN_SRC emacs-lisp
       (require 'package)
       (setq package-enable-at-startup nil)
       (add-to-list 'package-archives
-      '("melpa-stable" . "https://stable.melpa.org/packages/"))
+		   '("melpa-stable" . "https://stable.melpa.org/packages/"))
 
       (package-initialize)
+
+      ; fetch the list of packages available
+      (unless package-archive-contents
+	(package-refresh-contents))
+
+      ; install the missing packages
+      (dolist (package package-selected-packages)
+	(unless (package-installed-p package)
+	  (package-install package)))
     #+END_SRC
 
 *** Evil mode
