@@ -14,6 +14,10 @@
     #+BEGIN_SRC emacs-lisp
       (menu-bar-mode 1)
       (tool-bar-mode 0)
+      (setq inhibit-default-init t)
+      (setq inhibit-startup-buffer-menu t)
+      (setq inhibit-startup-echo-area-message nil)
+      (setq inhibit-startup-screen t)
     #+END_SRC
 
 *** Theme
@@ -66,6 +70,9 @@
 *** Org code snippets
     Allow code execution from src-block
     #+BEGIN_SRC emacs-lisp
+      (setq org-export-backends
+	    (append org-export-backends
+		    '("beamer" "twbs")))
       (org-babel-do-load-languages
        'org-babel-load-languages
        '(
@@ -98,9 +105,6 @@
       (setq evil-normal-state-cursor'("red" box))
       (setq evil-emacs-state-cursor'("gold" box))
     #+END_SRC
-
-    #+RESULTS:
-    | gold | box |
 
 *** Relative line number
     Shows relative line numbers on the leftbar
@@ -138,6 +142,7 @@
       (require 'haskell-interactive-mode)
       (require 'haskell-process)
       (add-hook 'haskell-mode-hook 'interactive-haskell-mode)
+      '(haskell-process-type (quote cabal-new-repl))
     #+END_SRC
 
 *** Go Mode
@@ -168,7 +173,7 @@
       (add-hook 'go-mode-hook 'my-go-mode-hook)
     #+END_SRC
 
-***  Python Mode
+*** Python Mode
     Python check and REPL
     #+BEGIN_SRC emacs-lisp
       (require 'python)
