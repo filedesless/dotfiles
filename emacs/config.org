@@ -98,7 +98,9 @@
     #+BEGIN_SRC emacs-lisp
       (package-initialize)
       (add-to-list 'package-archives
-		   '("melpa-stable" . "https://stable.melpa.org/packages/"))
+		   '("melpa" . "https://melpa.org/packages/"))
+      (unless package-archive-contents
+	(package-refresh-contents))
       (package-install-selected-packages)
     #+END_SRC
 
