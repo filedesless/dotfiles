@@ -3,6 +3,17 @@
 
 * Old file
 ** General configurations
+*** Open this file
+    Custom function to open my emacs config
+    #+BEGIN_SRC emacs-lisp
+      (defun econf ()
+	"Opens my emacs config"
+	(interactive)
+	(find-file "~/.emacs")
+	(split-window-right)
+	(find-file "~/.emacs.d/config.org"))
+    #+END_SRC
+
 *** C-x p; the opposite of C-x o
     Cycle through frames counter-clockwise
     #+BEGIN_SRC emacs-lisp
@@ -60,10 +71,8 @@
 *** Ido
     Makes file finding easier and more interactive
     #+BEGIN_SRC emacs-lisp
-      (require 'ido)
       (ido-mode 1)
       (setq ido-enable-flex-matching t) ;; enable fuzzy matching
-      ;; idomenu
       (autoload 'idomenu "idomenu" nil t)
     #+END_SRC
 
