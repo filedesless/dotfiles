@@ -87,8 +87,20 @@
        '(
 	 (python . t)
 	 (haskell . t)
-	 (shell . t)
+	 ;(shell . t)
 	 ))
+    #+END_SRC
+
+
+** Utility functions
+*** All
+    A generalized `and`
+    #+BEGIN_SRC emacs-lisp
+      (defun all (l)
+	"Checks wether all elements of the list l are non-nill"
+	(if (consp l)
+	    (and (car l) (all (cdr l)))
+	  t))
     #+END_SRC
 
 
@@ -99,7 +111,8 @@
       (package-initialize)
       (add-to-list 'package-archives
 		   '("melpa" . "https://melpa.org/packages/"))
-      (unless package-archive-contents
+      (setq package-check-signature nil)
+      (unless (all (mapcar 'package-installed-p package-selected-packages))
 	(package-refresh-contents))
       (package-install-selected-packages)
     #+END_SRC
