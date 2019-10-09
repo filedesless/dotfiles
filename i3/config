@@ -179,7 +179,7 @@ bar {
 }
 
 # Ctrl+Alt+l locks the screen
-bindsym Control+Mod1+l exec /usr/share/goobuntu-desktop-files/xsecurelock.sh
+bindsym Control+Mod1+l exec "which xsecurelock && xsecurelock || i3lock"
 
 # Autolock (requires autolock package)
 exec --no-startup-id env LOCKED_BY_SESSION_IDLE=true xautolock -time 2 -locker /usr/share/goobuntu-desktop-files/xsecurelock.sh
@@ -187,7 +187,5 @@ exec --no-startup-id env LOCKED_BY_SESSION_IDLE=true xautolock -time 2 -locker /
 # Set Keyboard delay and rate
 exec --no-startup-id xset r rate 185 25
 
-# Set keyboard layout switching on shift + alt
-exec "setxkbmap -layout us,ca"
-exec "setxkbmap -option 'grp:win_space_toggle'"
-exec "setxkbmap -option 'grp:alt_space_toggle'"
+# Set Keyboard layout switching $mod+n
+bindsym $mod+n exec "[ $(setxkbmap -query | awk '{if ($1 ~ /layout/) print $2;}') = 'us' ] && setxkbmap ca || setxkbmap us"
