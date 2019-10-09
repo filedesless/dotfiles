@@ -31,12 +31,6 @@
       (setq inhibit-startup-screen t)
     #+END_SRC
 
-*** Theme
-    Some nice dark theme
-    #+BEGIN_SRC emacs-lisp
-      (load-theme 'misterioso)
-    #+END_SRC
-
 *** Some custom filetypes
     Filetype-based modes for emacs-lisp and unix configs
     #+BEGIN_SRC emacs-lisp
