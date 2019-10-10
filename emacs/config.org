@@ -9,9 +9,10 @@
       (defun econf ()
 	"Opens my emacs config"
 	(interactive)
-	(find-file "~/.emacs")
-	(split-window-right)
-	(find-file "~/.emacs.d/config.org"))
+	(find-file "~/.emacs.d/config.org")
+	(find-file-other-window "~/.emacs")
+	(other-window 1)
+	(org-shifttab 4))
     #+END_SRC
 
 *** C-x p; the opposite of C-x o
@@ -83,6 +84,12 @@
 	 (haskell . t)
 	 ;(shell . t)
 	 ))
+    #+END_SRC
+
+*** Eww visual-line-mode hook
+    Makes eww line-wrap
+    #+BEGIN_SRC emacs-lisp
+      (add-hook 'eww-mode-hook 'visual-line-mode)
     #+END_SRC
 
 

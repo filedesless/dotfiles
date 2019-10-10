@@ -179,7 +179,7 @@ bar {
 }
 
 # Ctrl+Alt+l locks the screen
-bindsym Control+Mod1+l exec "which xsecurelock && xsecurelock || i3lock"
+bindsym Control+Mod1+l exec "which xsecurelock && xsecurelock || i3lock -c 7c7d80"
 
 # Autolock (requires autolock package)
 exec --no-startup-id env LOCKED_BY_SESSION_IDLE=true xautolock -time 2 -locker /usr/share/goobuntu-desktop-files/xsecurelock.sh
