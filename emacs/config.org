@@ -223,6 +223,13 @@
 	'(add-hook 'flycheck-mode-hook #'flycheck-golangci-lint-setup))
     #+END_SRC
 
+*** Flycheck Haskell
+    Package for specialized haskell checking
+    #+BEGIN_SRC emacs-lisp
+      (require 'flycheck-haskell)
+      (add-hook 'haskell-mode-hook #'flycheck-haskell-setup)
+    #+END_SRC
+
 *** Smex
     Enhanced M-x, with fuzzy matching, and suggestions based on usage
     #+BEGIN_SRC emacs-lisp
