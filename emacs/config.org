@@ -9,9 +9,10 @@
       (defun econf ()
 	"Opens my emacs config"
 	(interactive)
-	(find-file "~/.emacs")
-	(split-window-right)
-	(find-file "~/.emacs.d/config.org"))
+	(find-file "~/.emacs.d/config.org")
+	(find-file-other-window "~/.emacs")
+	(other-window 1)
+	(org-shifttab 4))
     #+END_SRC
 
 *** C-x p; the opposite of C-x o
@@ -29,12 +30,6 @@
       (setq inhibit-startup-buffer-menu t)
       (setq inhibit-startup-echo-area-message nil)
       (setq inhibit-startup-screen t)
-    #+END_SRC
-
-*** Theme
-    Some nice dark theme
-    #+BEGIN_SRC emacs-lisp
-      (load-theme 'misterioso)
     #+END_SRC
 
 *** Some custom filetypes
@@ -87,8 +82,26 @@
        '(
 	 (python . t)
 	 (haskell . t)
-	 (shell . t)
+	 ;(shell . t)
 	 ))
+    #+END_SRC
+
+*** Eww visual-line-mode hook
+    Makes eww line-wrap
+    #+BEGIN_SRC emacs-lisp
+      (add-hook 'eww-mode-hook 'visual-line-mode)
+    #+END_SRC
+
+
+** Utility functions
+*** All
+    A generalized `and`
+    #+BEGIN_SRC emacs-lisp
+      (defun all (l)
+	"Checks wether all elements of the list l are non-nill"
+	(if (consp l)
+	    (and (car l) (all (cdr l)))
+	  t))
     #+END_SRC
 
 
@@ -98,7 +111,10 @@
     #+BEGIN_SRC emacs-lisp
       (package-initialize)
       (add-to-list 'package-archives
-		   '("melpa-stable" . "https://stable.melpa.org/packages/"))
+		   '("melpa" . "https://melpa.org/packages/"))
+      (setq package-check-signature nil)
+      (unless (all (mapcar 'package-installed-p package-selected-packages))
+	(package-refresh-contents))
       (package-install-selected-packages)
     #+END_SRC
 

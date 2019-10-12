@@ -32,5 +32,8 @@
     # tmux
     ~/.tmux.conf: tmux/tmux.conf
 
+    # i3
+    ~/.config/i3/config: i3/config
+
 - shell:
     - mkdir -p ~/.oh-my-zsh/cache
