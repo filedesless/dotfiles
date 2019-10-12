@@ -102,6 +102,13 @@
       (package-install-selected-packages)
     #+END_SRC
 
+*** Get path from shell
+    A GNU Emacs library to ensure environment variables inside Emacs look the same as in the user's shell.
+    #+BEGIN_SRC emacs-lisp
+      (when (memq window-system '(mac ns x))
+	(exec-path-from-shell-initialize))
+    #+END_SRC
+
 *** Evil mode
     Emacs VI Layer, for vim bindings
     #+BEGIN_SRC emacs-lisp
@@ -149,8 +156,11 @@
       (require 'haskell-interactive-mode)
       (require 'haskell-process)
       (add-hook 'haskell-mode-hook 'interactive-haskell-mode)
-      '(haskell-process-type (quote cabal-new-repl))
+      ;'(haskell-process-type (quote cabal-new-repl))
     #+END_SRC
+
+    #+RESULTS:
+    | haskell-process-type | (quote cabal-new-repl) |
 
 *** Go Mode
     Syntax highlighting, go format and godoc integration
