@@ -185,7 +185,7 @@ bindsym Control+Mod1+l exec "which xsecurelock && xsecurelock || i3lock -c 7c7d8
 exec --no-startup-id env LOCKED_BY_SESSION_IDLE=true xautolock -time 2 -locker /usr/share/goobuntu-desktop-files/xsecurelock.sh
 
 # Set Keyboard delay and rate
-exec --no-startup-id xset r rate 185 25
+exec --no-startup-id xset r rate 250 25
 
 # Set Keyboard layout switching $mod+n
 bindsym $mod+n exec "[ $(setxkbmap -query | awk '{if ($1 ~ /layout/) print $2;}') = 'us' ] && setxkbmap ca || setxkbmap us"
