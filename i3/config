@@ -187,5 +187,8 @@ exec --no-startup-id env LOCKED_BY_SESSION_IDLE=true xautolock -time 2 -locker /
 # Set Keyboard delay and rate
 exec --no-startup-id xset r rate 250 25
 
+# Start compton
+exec --no-startup-id compton -b --vsync opengl
+
 # Set Keyboard layout switching $mod+n
 bindsym $mod+n exec "[ $(setxkbmap -query | awk '{if ($1 ~ /layout/) print $2;}') = 'us' ] && setxkbmap ca || setxkbmap us"
