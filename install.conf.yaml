@@ -34,6 +34,7 @@
 
     # i3
     ~/.config/i3/config: i3/config
+    ~/.config/i3status/config: i3status/config
 
 - shell:
     - mkdir -p ~/.oh-my-zsh/cache
