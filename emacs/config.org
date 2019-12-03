@@ -21,7 +21,7 @@
       (global-set-key (kbd "C-x p") 'previous-multiframe-window)
     #+END_SRC
 
-*** C-/; comment-or-uncomment-region
+*** C-c C-/; comment-or-uncomment-region
     Comment or uncomment region
     #+BEGIN_SRC emacs-lisp
       (defun comment-or-uncomment-line-or-region ()
@@ -33,7 +33,7 @@
 	  )
 	)
 
-      (global-set-key (kbd "C-/") 'comment-or-uncomment-line-or-region)
+      (global-set-key (kbd "C-c C-/") 'comment-or-uncomment-line-or-region)
     #+END_SRC
 
 *** UI stuff
