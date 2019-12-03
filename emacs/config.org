@@ -33,7 +33,7 @@
 	  )
 	)
 
-      (define-key c-mode-base-map (kbd "C-/") 'comment-or-uncomment-line-or-region)
+      (global-set-key (kbd "C-/") 'comment-or-uncomment-line-or-region)
     #+END_SRC
 
 *** UI stuff
@@ -98,7 +98,7 @@
        '(
 	 (python . t)
 	 (haskell . t)
-	 (shell . t)
+	 ;(shell . t)
 	 ))
     #+END_SRC
 
@@ -222,6 +222,16 @@
 	(local-set-key (kbd "M-*") 'pop-tag-mark)
       )
       (add-hook 'go-mode-hook 'my-go-mode-hook)
+    #+END_SRC
+
+*** Rust Mode
+    Syntax highlighting, rustfmt
+    #+BEGIN_SRC emacs-lisp
+      (require 'rust-mode)
+      (setq rust-format-on-save t)
+      (add-hook 'rust-mode 'lsp)
+      (add-hook 'rust-mode-hook 'cargo-minor-mode)
+      (add-hook 'flycheck-mode-hook #'flycheck-rust-setup)
     #+END_SRC
 
 *** Python Mode
