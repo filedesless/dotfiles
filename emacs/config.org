@@ -25,7 +25,8 @@
     Remove clunky icons and make cursor visible
     #+BEGIN_SRC emacs-lisp
       (menu-bar-mode 1)
-      (tool-bar-mode 0)
+      (when window-system
+	(tool-bar-mode 0))
       (setq inhibit-default-init t)
       (setq inhibit-startup-buffer-menu t)
       (setq inhibit-startup-echo-area-message nil)
@@ -82,7 +83,7 @@
        '(
 	 (python . t)
 	 (haskell . t)
-	 ;(shell . t)
+	 (shell . t)
 	 ))
     #+END_SRC
 
@@ -109,10 +110,12 @@
 *** Default package repository
     Use MELPA stable to fetch new packages, and ensure they are installed
     #+BEGIN_SRC emacs-lisp
-      (package-initialize)
-      (add-to-list 'package-archives
-		   '("melpa" . "https://melpa.org/packages/"))
+      (add-to-list  'package-archives
+		    '("gnu" . "http://elpa.gnu.org/packages/"))
+      (add-to-list  'package-archives
+		    '("melpa" . "https://melpa.org/packages/"))
       (setq package-check-signature nil)
+      (package-initialize)
       (unless (all (mapcar 'package-installed-p package-selected-packages))
 	(package-refresh-contents))
       (package-install-selected-packages)
