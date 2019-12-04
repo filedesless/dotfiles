@@ -190,11 +190,9 @@
       (require 'haskell-interactive-mode)
       (require 'haskell-process)
       (add-hook 'haskell-mode-hook 'interactive-haskell-mode)
+      (add-hook 'haskell-interactive-mode 'evil-emacs-state)
       ;'(haskell-process-type (quote cabal-new-repl))
     #+END_SRC
-
-    #+RESULTS:
-    | haskell-process-type | (quote cabal-new-repl) |
 
 *** Go Mode
     Syntax highlighting, go format and godoc integration
@@ -249,6 +247,13 @@
       (add-hook 'after-init-hook #'global-flycheck-mode)
       (eval-after-load 'flycheck
 	'(add-hook 'flycheck-mode-hook #'flycheck-golangci-lint-setup))
+    #+END_SRC
+
+*** Flycheck Haskell
+    Package for specialized haskell checking
+    #+BEGIN_SRC emacs-lisp
+      (require 'flycheck-haskell)
+      (add-hook 'haskell-mode-hook #'flycheck-haskell-setup)
     #+END_SRC
 
 *** Smex
