@@ -21,6 +21,21 @@
       (global-set-key (kbd "C-x p") 'previous-multiframe-window)
     #+END_SRC
 
+*** C-c C-/; comment-or-uncomment-region
+    Comment or uncomment region
+    #+BEGIN_SRC emacs-lisp
+      (defun comment-or-uncomment-line-or-region ()
+	"Comments or uncomments the current line or region."
+	(interactive)
+	(if (region-active-p)
+	    (comment-or-uncomment-region (region-beginning) (region-end))
+	  (comment-or-uncomment-region (line-beginning-position) (line-end-position))
+	  )
+	)
+
+      (global-set-key (kbd "C-c C-/") 'comment-or-uncomment-line-or-region)
+    #+END_SRC
+
 *** UI stuff
     Remove clunky icons and make cursor visible
     #+BEGIN_SRC emacs-lisp
