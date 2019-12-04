@@ -207,6 +207,16 @@
       (add-hook 'go-mode-hook 'my-go-mode-hook)
     #+END_SRC
 
+*** Rust Mode
+    Syntax highlighting, rustfmt
+    #+BEGIN_SRC emacs-lisp
+      (require 'rust-mode)
+      (setq rust-format-on-save t)
+      (add-hook 'rust-mode 'lsp)
+      (add-hook 'rust-mode-hook 'cargo-minor-mode)
+      (add-hook 'flycheck-mode-hook #'flycheck-rust-setup)
+    #+END_SRC
+
 *** Python Mode
     Python check and REPL
     #+BEGIN_SRC emacs-lisp
