@@ -23,8 +23,6 @@
     ~/.oh-my-zsh: zsh/oh-my-zsh
 
     # Emacs
-    # ~/.emacs: emacs/emacs
-    # ~/.emacs.d/config.org: emacs/config.org
     ~/.spacemacs: emacs/spacemacs
 
     # git
