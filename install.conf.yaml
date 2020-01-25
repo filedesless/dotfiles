@@ -35,5 +35,15 @@
     ~/.config/i3/config: i3/config
     ~/.config/i3status/config: i3status/config
 
+    # bspwm
+    ~/.config/bspwm/bspwmrc: bspwm/bspwmrc
+
+    # sxhkd
+    ~/.config/sxhkd/sxhkdrc: sxhkd/sxhkdrc
+
+    # polybar
+    ~/.config/polybar/config: polybar/config
+    ~/.config/polybar/launch.sh: polybar/launch.sh
+
 - shell:
     - mkdir -p ~/.oh-my-zsh/cache
