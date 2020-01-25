@@ -1,4 +1,16 @@
 #
+# Media keys
+#
+XF86AudioRaiseVolume
+	pactl set-sink-volume 1 +5%
+
+XF86AudioLowerVolume
+	pactl set-sink-volume 1 -5%
+
+XF86AudioMute
+	amixer -q set Master toggle
+
+#
 # wm independent hotkeys
 #
 
@@ -8,7 +20,7 @@ super + Return
 
 # program launcher
 super + @space
-	dmenu_run
+	which rofi && rofi -show drun || dmenu
 
 # make sxhkd reload its configuration files:
 super + Escape
