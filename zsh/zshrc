@@ -133,3 +133,6 @@ bindkey '^ ' autosuggest-accept
 if [ -n "${commands[direnv]}" ]; then
    eval "$(direnv hook zsh)"
 fi
+
+[ -f "/usr/share/fzf/key-bindings.zsh" ] && source /usr/share/fzf/key-bindings.zsh
+[ -f "/usr/share/fzf/completion.zsh" ] && source /usr/share/fzf/completion.zsh
