@@ -36,5 +36,9 @@
     ~/.config/i3/config: i3/config
     ~/.config/i3status/config: i3status/config
 
+    # yabai
+    ~/.yabairc: osx/yabairc
+    ~/.skhdrc: osx/skhdrc
+
 - shell:
     - mkdir -p ~/.oh-my-zsh/cache
