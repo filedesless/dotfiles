@@ -1,17 +1,35 @@
-#!/usr/bin/env bash
+#!/bin/sh
 
-set -e
+DOTFILES_PATH=$(dirname $(realpath $0))
+DOTFILES=(
+    .spacemacs
+    .zshrc
+    .oh-my-zsh
+    git/.gitignore
+    .tmux.conf
+)
 
-CONFIG="install.conf.yaml"
-DOTBOT_DIR="dotbot"
+unlink ~/.dotfiles && ln -s $DOTFILES_PATH ~/.dotfiles
 
-DOTBOT_BIN="bin/dotbot"
-BASEDIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+for DOTFILE in ${DOTFILES[@]}
+do
+    echo configuring $DOTFILE
+    ln -s $DOTFILES_PATH/$DOTFILE ~
+done
 
-cd "${BASEDIR}"
-git -C "${DOTBOT_DIR}" submodule sync --quiet --recursive
-git submodule update --init --recursive "${DOTBOT_DIR}"
-
-[ ! -d ~/.emacs.d ] && git clone https://github.com/syl20bnr/spacemacs ~/.emacs.d
-
-"${BASEDIR}/${DOTBOT_DIR}/${DOTBOT_BIN}" -d "${BASEDIR}" -c "${CONFIG}" "${@}"
+case $(uname) in
+    Darwin)
+        echo configuring yabai and skhd
+        ln -s $DOTFILES_PATH/.yabairc $DOTFILES_PATH/.skhdrc ~
+        break;;
+    Linux)
+        echo configuring i3
+        ln -s $DOTFILES_PATH/i3/config ~/.config/i3/config
+        ln -s $DOTFILES_PATH/i3status/config ~/.config/i3status/config
+        echo configuring bspwm, sxhkd and polybar
+        ln -s $DOTFILES_PATH/bspwm/bspwmrc ~/.config/bspwm/bspwmrc
+        ln -s $DOTFILES_PATH/sxhkd/sxhkdrc ~/.config/sxhkd/sxhkdrc
+        ln -s $DOTFILES_PATH/polybar/config ~/.config/polybar/config
+        ln -s $DOTFILES_PATH/polybar/launch.sh ~/.config/polybar/launch.sh
+        break;;
+esac

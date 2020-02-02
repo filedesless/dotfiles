@@ -1,14 +1,11 @@
 # dotfiles
 
-Install zsh and neovim
+Install Emacs on OSX
 
-Run :PlugInstall inside vi
-
+    brew tap railwaycat/emacsmacport
+    brew cask install emacs-mac-spacemacs-icon
+    git clone https://github.com/syl20bnr/spacemacs ~/.emacs.d
 
 ## Installing most configs
 
 	./install
-
-## Installing nixos setup (with xfce and xmonad)
-
-	./nix-install
