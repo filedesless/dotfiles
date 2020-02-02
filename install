@@ -24,9 +24,11 @@ case $(uname) in
         break;;
     Linux)
         echo configuring i3
+        mkdir -p ~/.config/i3 ~/.config/i3status
         ln -s $DOTFILES_PATH/i3/config ~/.config/i3/config
         ln -s $DOTFILES_PATH/i3status/config ~/.config/i3status/config
         echo configuring bspwm, sxhkd and polybar
+        mkdir -p ~/.config/bspwm ~/.config/sxhkdrc ~/.config/polybar
         ln -s $DOTFILES_PATH/bspwm/bspwmrc ~/.config/bspwm/bspwmrc
         ln -s $DOTFILES_PATH/sxhkd/sxhkdrc ~/.config/sxhkd/sxhkdrc
         ln -s $DOTFILES_PATH/polybar/config ~/.config/polybar/config
