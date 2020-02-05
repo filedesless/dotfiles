@@ -1,5 +1,7 @@
 #!/bin/sh
 
+# set -x
+
 DOTFILES_PATH=$(dirname $(realpath $0))
 DOTFILES=(
     .spacemacs
@@ -9,29 +11,40 @@ DOTFILES=(
     .tmux.conf
 )
 
+relink_file() {
+  # relink_file file/relative/to/repo path/to/some/dir
+  DST="$2/$(basename $1)"
+  mkdir -p $2
+  if [ ! -f "$DST" ]; then
+    [ -L "$DST" ] && rm $DST
+    ln -s $DOTFILES_PATH/$1 $DST
+  else
+    echo file $DST already exists > /dev/stderr
+  fi
+}
+
 unlink ~/.dotfiles && ln -s $DOTFILES_PATH ~/.dotfiles
 
 for DOTFILE in ${DOTFILES[@]}
 do
     echo configuring $DOTFILE
-    ln -s $DOTFILES_PATH/$DOTFILE ~
+    relink_file $DOTFILE ~
 done
 
 case $(uname) in
     Darwin)
         echo configuring yabai and skhd
-        ln -s $DOTFILES_PATH/.yabairc $DOTFILES_PATH/.skhdrc ~
+        relink_file .yabairc ~
+        relink_file .skhdrc ~
         break;;
     Linux)
         echo configuring i3
-        mkdir -p ~/.config/i3 ~/.config/i3status
-        ln -s $DOTFILES_PATH/i3/config ~/.config/i3/config
-        ln -s $DOTFILES_PATH/i3status/config ~/.config/i3status/config
+        relink_file i3/config ~/.config/i3
+        relink_file i3status/config ~/.config/i3status
         echo configuring bspwm, sxhkd and polybar
-        mkdir -p ~/.config/bspwm ~/.config/sxhkdrc ~/.config/polybar
-        ln -s $DOTFILES_PATH/bspwm/bspwmrc ~/.config/bspwm/bspwmrc
-        ln -s $DOTFILES_PATH/sxhkd/sxhkdrc ~/.config/sxhkd/sxhkdrc
-        ln -s $DOTFILES_PATH/polybar/config ~/.config/polybar/config
-        ln -s $DOTFILES_PATH/polybar/launch.sh ~/.config/polybar/launch.sh
+        relink_file bspwm/bspwmrc ~/.config/bspwm
+        relink_file sxhkd/sxhkdrc ~/.config/sxhkd
+        relink_file polybar/config ~/.config/polybar
+        relink_file polybar/launch.sh ~/.config/polybar
         break;;
 esac
