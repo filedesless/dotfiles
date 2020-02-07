@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 # set -x
 
@@ -36,7 +36,7 @@ case $(uname) in
         echo configuring yabai and skhd
         relink_file .yabairc ~
         relink_file .skhdrc ~
-        break;;
+        ;;
     Linux)
         echo configuring i3
         relink_file i3/config ~/.config/i3
@@ -46,5 +46,5 @@ case $(uname) in
         relink_file sxhkd/sxhkdrc ~/.config/sxhkd
         relink_file polybar/config ~/.config/polybar
         relink_file polybar/launch.sh ~/.config/polybar
-        break;;
+        ;;
 esac
