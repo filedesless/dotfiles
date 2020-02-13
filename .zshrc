@@ -7,7 +7,7 @@ export ZSH=~/.oh-my-zsh
 # Set name of the theme to load. Optionally, if you set this to "random"
 # it'll load a random theme each time that oh-my-zsh is loaded.
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
-ZSH_THEME="bureau-filedesless"
+#ZSH_THEME="bureau-filedesless"
 
 # Set list of themes to load
 # Setting this variable when ZSH_THEME=random
@@ -59,11 +59,9 @@ ZSH_THEME="bureau-filedesless"
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(
-  golang
-  git
+  zsh-completions
 )
 
-source $ZSH/oh-my-zsh.sh
 
 # User configuration
 
@@ -95,10 +93,7 @@ source $ZSH/oh-my-zsh.sh
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
 alias vi="vim"
-alias vim="nvim"
-
-export EDITOR="emacs -nw"
-alias e=$EDITOR
+export EDITOR=vim
 
 if [ $(uname -s) = "Darwin" ]; then
   export PATH=/usr/local/Cellar/openvpn/2.4.6/sbin:$PATH
@@ -108,15 +103,9 @@ if [ $(uname -s) = "Darwin" ]; then
   export FZF_DEFAULT_COMMAND='fd --type f --exclude .git --exclude Library --exclude node_modules'
   export FZF_ALT_C_COMMAND='fd --type d --exclude .git --exclude Library --exclude node_modules'
   export FZF_CTRL_T_COMMAND='fd --type f --exclude .git --exclude Library --exclude node_modules'
-  #source ~/.nix-profile/etc/profile.d/nix.sh
 fi
 
-export GPG_TTY=$(tty)
-export TERM=xterm
-export GOPATH=$HOME/go
-export PATH=$PATH:$GOPATH/bin
-export DOTNET_CLI_TELEMETRY_OPTOUT=1
-
+source /usr/share/doc/fzf/examples/key-bindings.zsh
 
 if [ -n "${commands[fzf-share]}" ]; then
   source "$(fzf-share)/key-bindings.zsh"
@@ -136,3 +125,42 @@ fi
 
 [ -f "/usr/share/fzf/key-bindings.zsh" ] && source /usr/share/fzf/key-bindings.zsh
 [ -f "/usr/share/fzf/completion.zsh" ] && source /usr/share/fzf/completion.zsh
+
+google3_prompt_info() {
+  if [[ $PWD =~ '/google/src/cloud/[^/]+/(.+)/google3(.*)' ]]; then
+    # Use CitC client names as window titles in screen/tmux
+    #print -n "\ek${match[1]}\e\\"
+    print -r -- "%F{magenta}($match[1]) %F{yellow}//${match[2]#/}"
+  else
+    print -r -- "%F{yellow}%~"
+  fi
+}
+
+work_config() {
+  source /etc/bash_completion.d/g4d
+  source /etc/bash_completion.d/p4
+
+  #source /etc/bash_completion.d/blaze
+  # https://g3doc.corp.google.com/devtools/blaze/scripts/zsh_completion/README.md?cl=head
+  # fpath=(/google/src/files/head/depot/google3/devtools/blaze/scripts/zsh_completion $fpath)
+  [ -d "$HOME/src/zsh_completion" ] && fpath=($HOME/src/zsh_completion $fpath)
+  zstyle ':completion:*' use-cache on
+  zstyle ':completion:*' cache-path ~/.zsh/cache
+  _blaze_query_tmux() {
+    tmux display-message 'Querying blaze'
+    $@
+  }
+  zstyle ':completion:*:blaze-*:query' command -_blaze_query_tmux
+
+  alias python3_depcheck=/google/data/ro/teams/python-team/python3_depcheck
+  alias python3_convert=/google/bin/releases/python-team/public/python3_convert
+  alias tmux=tmx2
+
+  setopt prompt_subst  # enable command substitution (and other expansions) in PROMPT
+  PROMPT='%F{cyan}%n%f α %F{green}%m%f φ $(google3_prompt_info)%f'$'\n'' λ '  # %f for stopping the foreground color
+
+  [ -d "$HOME/src/depot_tools" ] && export PATH=$PATH:$HOME/src/depot_tools
+}
+
+
+[[ "$(hostname)" =~ "corpbox" ]] && work_config || ZSH_THEME="bureau-filedesless" source $ZSH/oh-my-zsh.sh
