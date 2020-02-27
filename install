@@ -7,44 +7,60 @@ DOTFILES=(
     .spacemacs
     .zshrc
     .oh-my-zsh
-    git/.gitignore
+    git/gitignore
     .tmux.conf
 )
 
+log() {
+  echo -e "\e[32m$1\e[0m" > /dev/stderr
+}
+
+warn() {
+  echo -e "\e[33m$1\e[0m" > /dev/stderr
+}
+
+error() {
+  echo -e "\e[31m$1\e[0m" > /dev/stderr
+}
+
 relink_file() {
   # relink_file file/relative/to/repo path/to/some/dir
+  SRC="$DOTFILES_PATH/$1"
   DST="$2/$(basename $1)"
-  mkdir -p $2
-  if [ ! -f "$DST" ]; then
-    [ -L "$DST" ] && rm $DST
-    ln -s $DOTFILES_PATH/$1 $DST
+  mkdir -p $(dirname $DST)
+  if [[ ! -f "$SRC"  && ! -d "$SRC" ]]; then
+    error "file $SRC doesn't exist"
+  elif [ -L "$DST" ]; then
+    log "file $DST relinked"
+    rm $DST && ln -s $SRC $DST
+  elif [[ -f "$DST" || -d "$DST" ]]; then
+    warn "regular file or directory $DST already exists, no action taken"
   else
-    echo file $DST already exists > /dev/stderr
+    [ -L "$DST" ] && rm $DST
+    ln -s $SRC $DST
   fi
 }
 
+echo configuring common dotfiles
 unlink ~/.dotfiles && ln -s $DOTFILES_PATH ~/.dotfiles
-
 for DOTFILE in ${DOTFILES[@]}
 do
-    echo configuring $DOTFILE
     relink_file $DOTFILE ~
 done
 
 case $(uname) in
-    Darwin)
-        echo configuring yabai and skhd
-        relink_file .yabairc ~
-        relink_file .skhdrc ~
-        ;;
-    Linux)
-        echo configuring i3
-        relink_file i3/config ~/.config/i3
-        relink_file i3status/config ~/.config/i3status
-        echo configuring bspwm, sxhkd and polybar
-        relink_file bspwm/bspwmrc ~/.config/bspwm
-        relink_file sxhkd/sxhkdrc ~/.config/sxhkd
-        relink_file polybar/config ~/.config/polybar
-        relink_file polybar/launch.sh ~/.config/polybar
-        ;;
+  Darwin)
+    echo configuring OSX dotfiles
+    relink_file .yabairc ~
+    relink_file .skhdrc ~
+    ;;
+  Linux)
+    echo configuring Linux dotfiles
+    relink_file i3/config ~/.config/i3
+    relink_file i3status/config ~/.config/i3status
+    relink_file bspwm/bspwmrc ~/.config/bspwm
+    relink_file sxhkd/sxhkdrc ~/.config/sxhkd
+    relink_file polybar/config ~/.config/polybar
+    relink_file polybar/launch.sh ~/.config/polybar
+    ;;
 esac
