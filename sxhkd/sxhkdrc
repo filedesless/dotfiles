@@ -19,7 +19,7 @@ super + Return
 	kitty || urxvt || i3-sensible-terminal || xterm
 
 # program launcher
-super + @space
+alt + @space
 	which rofi && rofi -show drun || dmenu
 
 # make sxhkd reload its configuration files:
