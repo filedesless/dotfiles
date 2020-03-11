@@ -31,6 +31,7 @@ values."
    ;; List of configuration layers to load.
    dotspacemacs-configuration-layers
    '(
+     go
      vimscript
      javascript
      ;; python
@@ -328,6 +329,7 @@ explicitly specified that a variable should be set before a package is loaded,
 you should place your code here."
   ;; (define-key evil-insert-state-map (kbd "C-c") 'evil-normal-state)
   (setq backup-directory-alist '(("." . "~/.emacs_save")))
+  (setq vc-follow-symlinks t)
 
   (if (file-exists-p "work.el") (load-file "work.el"))
   )
