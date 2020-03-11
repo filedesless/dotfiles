@@ -164,4 +164,4 @@ google3_prompt_info() {
   fi
 }
 
-source /usr/share/doc/fzf/examples/key-bindings.zsh
+[ -f /usr/share/doc/fzf/examples/key-bindings.zshsource ] && /usr/share/doc/fzf/examples/key-bindings.zsh
