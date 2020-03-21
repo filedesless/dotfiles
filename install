@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 # set -x
 
@@ -42,7 +42,9 @@ relink_file() {
 }
 
 echo configuring common dotfiles
-unlink ~/.dotfiles && ln -s $DOTFILES_PATH ~/.dotfiles
+[ -L ~/.dotfiles ] && unlink -f ~/.dotfiles
+ln -s $DOTFILES_PATH ~/.dotfiles
+
 for DOTFILE in ${DOTFILES[@]}
 do
     relink_file $DOTFILE ~
