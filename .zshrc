@@ -165,3 +165,5 @@ google3_prompt_info() {
 }
 
 [ -f /usr/share/doc/fzf/examples/key-bindings.zshsource ] && /usr/share/doc/fzf/examples/key-bindings.zsh
+
+which opam > /dev/null && eval $(opam env)
