@@ -61,9 +61,5 @@ case $(uname) in
     echo configuring Linux dotfiles
     relink_file i3/config ~/.config/i3
     relink_file i3status/config ~/.config/i3status
-    relink_file bspwm/bspwmrc ~/.config/bspwm
-    relink_file sxhkd/sxhkdrc ~/.config/sxhkd
-    relink_file polybar/config ~/.config/polybar
-    relink_file polybar/launch.sh ~/.config/polybar
     ;;
 esac

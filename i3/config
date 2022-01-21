@@ -30,13 +30,13 @@ font pango:monospace 8
 floating_modifier $mod
 
 # start a terminal
-bindsym Mod1+Return exec kitty || i3-sensible-terminal
+bindsym Mod4+Return exec kitty || alacritty || i3-sensible-terminal
 
 # kill focused window
 bindsym $mod+w kill
 
 # start dmenu (a program launcher) on Alt+Space
-bindsym Mod1+space exec rofi -show drun || dmenu_run
+bindsym Mod1+space exec rofi -show drun -show-icons || dmenu_run
 # There also is the (new) i3-dmenu-desktop which only displays applications
 # shipping a .desktop file. It is a wrapper around dmenu, so you need that
 # installed.
@@ -86,7 +86,7 @@ bindsym $mod+f fullscreen toggle
 
 # change container layout (stacked, tabbed, toggle split)
 bindsym $mod+s layout stacking
-# bindsym $mod+w layout tabbed
+bindsym $mod+t layout tabbed
 bindsym $mod+e layout toggle split
 
 # toggle tiling / floating
@@ -185,8 +185,8 @@ bar {
 # Ctrl+Alt+l locks the screen
 bindsym Control+Mod1+l exec "which xsecurelock && xsecurelock || i3lock -c 7c7d80"
 
-# Autolock (requires autolock package)
-exec --no-startup-id env LOCKED_BY_SESSION_IDLE=true xautolock -time 2 -locker /usr/share/goobuntu-desktop-files/xsecurelock.sh
+# Wallpaper
+exec --no-startup-id feh --bg-scale ~/Pictures/wallpaper.png
 
 # Set Keyboard delay and rate
 exec --no-startup-id xset r rate 250 25

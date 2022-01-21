@@ -92,35 +92,7 @@ plugins=(
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
-work_config() {
-  source $ZSH/oh-my-zsh.sh
-  source /etc/bash_completion.d/g4d
-  source /etc/bash_completion.d/p4
-
-  #source /etc/bash_completion.d/blaze
-  # https://g3doc.corp.google.com/devtools/blaze/scripts/zsh_completion/README.md?cl=head
-  # fpath=(/google/src/files/head/depot/google3/devtools/blaze/scripts/zsh_completion $fpath)
-  [ -d "$HOME/src/zsh_completion" ] && fpath=($HOME/src/zsh_completion $fpath)
-  zstyle ':completion:*' use-cache on
-  zstyle ':completion:*' cache-path ~/.zsh/cache
-  _blaze_query_tmux() {
-    tmux display-message 'Querying blaze'
-    $@
-  }
-  zstyle ':completion:*:blaze-*:query' command -_blaze_query_tmux
-
-  alias python3_depcheck=/google/data/ro/teams/python-team/python3_depcheck
-  alias python3_convert=/google/bin/releases/python-team/public/python3_convert
-  alias tmux=tmx2
-
-  setopt prompt_subst  # enable command substitution (and other expansions) in PROMPT
-  PROMPT='%F{cyan}%n%f α %F{green}%m%f φ $(google3_prompt_info)%f'$'\n'' λ '  # %f for stopping the foreground color
-
-  [ -d "$HOME/src/depot_tools" ] && export PATH=$PATH:$HOME/src/depot_tools
-
-}
-
-[[ "$(hostname)" =~ "corpbox" ]] && work_config || ZSH_THEME="bureau-filedesless" source $ZSH/oh-my-zsh.sh
+ZSH_THEME="bureau-filedesless" source $ZSH/oh-my-zsh.sh
 
 alias vi="vim"
 export EDITOR=vim
@@ -153,16 +125,6 @@ fi
 
 [ -f "/usr/share/fzf/key-bindings.zsh" ] && source /usr/share/fzf/key-bindings.zsh
 [ -f "/usr/share/fzf/completion.zsh" ] && source /usr/share/fzf/completion.zsh
-
-google3_prompt_info() {
-  if [[ $PWD =~ '/google/src/cloud/[^/]+/(.+)/google3(.*)' ]]; then
-    # Use CitC client names as window titles in screen/tmux
-    #print -n "\ek${match[1]}\e\\"
-    print -r -- "%F{magenta}($match[1]) %F{yellow}//${match[2]#/}"
-  else
-    print -r -- "%F{yellow}%~"
-  fi
-}
 
 [ -f /usr/share/doc/fzf/examples/key-bindings.zshsource ] && /usr/share/doc/fzf/examples/key-bindings.zsh
 
