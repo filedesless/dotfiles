@@ -1,0 +1,23 @@
+[window]
+padding = { x = 16, y = 16 }
+dynamic_padding = true
+
+[font]
+size = 12
+# normal = { family = "Fira Code Mono", style = "Regular" }
+normal = { family = "SF Mono", style = "Regular" }
+# normal = { family = "AnnotationM NF", style = "Regular" }
+
+[general]
+import = ["~/.config/alacritty/themes/noctalia.toml"]
+live_config_reload = true
+
+[[keyboard.bindings]]
+key = "N"
+mods = "Control|Shift"
+action = "SpawnNewInstance"
+
+[[keyboard.bindings]]
+key = "Return"
+mods = "Shift"
+chars = "\u001B\r"
