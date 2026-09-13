@@ -1,0 +1,201 @@
+#!/bin/sh
+
+set -eu
+
+repo_dir=$(CDPATH= cd -- "$(dirname -- "$0")" && pwd)
+home_dir=${HOME:?HOME must be set}
+
+usage() {
+    cat <<EOF
+Usage:
+  $(basename "$0") install PATH...
+  $(basename "$0") add PATH...
+  $(basename "$0") remove PATH...
+
+PATH is a file or folder relative to this repository, such as .profile or
+.config/nvim.
+EOF
+}
+
+die() {
+    printf '%s\n' "dotfiles: $*" >&2
+    exit 1
+}
+
+validate_file() {
+    file=$1
+
+    case $file in
+        ""|/*|../*|*/../*|*/..|..)
+            die "FILE must be a relative path inside the repository: $file"
+            ;;
+    esac
+
+    [ -e "$repo_dir/$file" ] || [ -L "$repo_dir/$file" ] ||
+        die "repository file does not exist: $file"
+}
+
+validate_path() {
+    file=$1
+
+    case $file in
+        ""|/*|../*|*/../*|*/..|..)
+            die "FILE must be a relative path inside the repository: $file"
+            ;;
+    esac
+}
+
+normalize_path() {
+    file=$1
+
+    while [ "${file%/}" != "$file" ]; do
+        file=${file%/}
+    done
+    [ -n "$file" ] || die "PATH must not be empty"
+    printf '%s\n' "$file"
+}
+
+add_path() {
+    file=$1
+
+    case $file in
+        "$home_dir"/*)
+            file=${file#"$home_dir"/}
+            ;;
+    esac
+    file=$(normalize_path "$file")
+    validate_path "$file"
+    printf '%s\n' "$file"
+}
+
+add_path_entry() {
+    file=$(add_path "$1")
+    source=$home_dir/$file
+    target=$repo_dir/$file
+
+    [ ! -L "$source" ] ||
+        die "home path is already a symlink; manage its target instead: $source"
+    [ -e "$source" ] || [ -L "$source" ] ||
+        die "home file does not exist: $source"
+    [ ! -e "$target" ] && [ ! -L "$target" ] ||
+        die "repository file already exists: $file"
+
+    mkdir -p "$(dirname "$target")"
+    if [ -d "$source" ] && [ ! -L "$source" ]; then
+        # Copy directories as a complete tree before replacing them with a link.
+        cp -pR "$source" "$target"
+        rm -r "$source"
+    else
+        cp -p "$source" "$target"
+        rm "$source"
+    fi
+    ln -s "$target" "$source"
+    printf 'added and linked %s\n' "$file"
+}
+
+install_file() {
+    file=$(normalize_path "$1")
+    source=$repo_dir/$file
+    target=$home_dir/$file
+
+    validate_file "$file"
+    mkdir -p "$(dirname "$target")"
+
+    if [ -L "$target" ]; then
+        [ "$(readlink "$target")" = "$source" ] &&
+            printf 'already linked  %s\n' "$file" && return
+    elif [ ! -e "$target" ]; then
+        ln -s "$source" "$target"
+        printf 'linked          %s\n' "$file"
+        return
+    fi
+
+    printf 'warning: install will replace existing target: %s\n' "$target" >&2
+    printf 'Continue? [y/N] ' >&2
+    read answer || answer=
+    case $answer in
+        y|Y|yes|YES)
+            rm -r "$target"
+            ;;
+        *)
+            die "installation cancelled: $file"
+            ;;
+    esac
+
+    ln -s "$source" "$target"
+    printf 'linked          %s\n' "$file"
+}
+
+install_all() {
+    found=false
+
+    for path in "$repo_dir"/* "$repo_dir"/.[!.]* "$repo_dir"/..?*; do
+        [ -e "$path" ] || [ -L "$path" ] || continue
+        file=${path#"$repo_dir"/}
+
+        case $file in
+            .git|dotfiles|README.md)
+                continue
+                ;;
+        esac
+
+        found=true
+        install_file "$file"
+    done
+
+    [ "$found" = true ] || die "no installable paths found in repository"
+}
+
+remove_file() {
+    file=$(normalize_path "$1")
+    source=$repo_dir/$file
+    target=$home_dir/$file
+
+    validate_file "$file"
+
+    if [ ! -e "$target" ] && [ ! -L "$target" ]; then
+        printf 'already absent   %s\n' "$file"
+        return
+    fi
+
+    [ -L "$target" ] && [ "$(readlink "$target")" = "$source" ] ||
+        die "refusing to remove a non-managed target: $target"
+
+    rm "$target"
+    printf 'removed          %s\n' "$file"
+}
+
+[ "$#" -ge 1 ] || {
+    install_all
+    exit 0
+}
+
+command=$1
+shift
+
+case $command in
+    -h|--help|help)
+        usage
+        exit 0
+        ;;
+esac
+
+case $command in
+    add)
+        for file do add_path_entry "$file"; done
+        ;;
+    install)
+        if [ "$#" -eq 0 ]; then
+            install_all
+        else
+            for file do install_file "$file"; done
+        fi
+        ;;
+    remove)
+        for file do remove_file "$file"; done
+        ;;
+    *)
+        usage >&2
+        exit 1
+        ;;
+esac
