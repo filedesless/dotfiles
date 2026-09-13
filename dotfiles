@@ -8,12 +8,16 @@ home_dir=${HOME:?HOME must be set}
 usage() {
     cat <<EOF
 Usage:
-  $(basename "$0") install PATH...
+  $(basename "$0") install [PATH...]
   $(basename "$0") add PATH...
   $(basename "$0") remove PATH...
+  $(basename "$0") status [PATH...]
+  $(basename "$0") list
 
-PATH is a file relative to this repository, such as .profile or
-.config/niri/config.kdl.
+With no PATH, install installs every dotfile and status checks every dotfile.
+PATH is a file relative to this repository, or a path under ~, such as
+.profile or .config/niri/config.kdl.
+Running $(basename "$0") without a command installs every dotfile.
 EOF
 }
 
@@ -154,6 +158,56 @@ remove_file() {
     printf 'removed          %s\n' "$file"
 }
 
+status_file() {
+    file=$(normalize_path "$1")
+    source=$repo_dir/$file
+    target=$home_dir/$file
+
+    validate_file "$file"
+
+    if [ -L "$target" ] && [ "$(readlink "$target")" = "$source" ]; then
+        printf 'linked           %s\n' "$file"
+    elif [ -e "$target" ] || [ -L "$target" ]; then
+        printf 'not managed      %s\n' "$file"
+    else
+        printf 'missing           %s\n' "$file"
+    fi
+}
+
+status_all() {
+    find "$repo_dir" -type d -name .git -prune -o -type f -print |
+        while IFS= read -r path; do
+        file=${path#"$repo_dir"/}
+
+        case $file in
+            dotfiles|README.md)
+                ;;
+            *)
+                status_file "$file"
+                ;;
+        esac
+    done
+}
+
+list_managed() {
+    find "$repo_dir" -type d -name .git -prune -o -type f -print |
+        while IFS= read -r path; do
+        file=${path#"$repo_dir"/}
+
+        case $file in
+            dotfiles|README.md)
+                ;;
+            *)
+                target=$home_dir/$file
+                if [ -L "$target" ] &&
+                    [ "$(readlink "$target")" = "$path" ]; then
+                    printf '%s\n' "$file"
+                fi
+                ;;
+        esac
+    done
+}
+
 [ "$#" -ge 1 ] || {
     install_all
     exit 0
@@ -182,6 +236,20 @@ case $command in
         ;;
     remove)
         for file do remove_file "$file"; done
+        ;;
+    status)
+        if [ "$#" -eq 0 ]; then
+            status_all
+        else
+            for file do status_file "$file"; done
+        fi
+        ;;
+    list)
+        [ "$#" -eq 0 ] || {
+            usage >&2
+            exit 1
+        }
+        list_managed
         ;;
     *)
         usage >&2

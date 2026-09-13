@@ -8,17 +8,27 @@ Small POSIX `sh` manager for linking files from this repository into `$HOME`.
 # Absolute paths inside $HOME are also accepted
 ./dotfiles add "$HOME/.profile"
 
-# Create parent directories and symlink selected paths into $HOME
+# Create parent directories and symlink selected paths into $HOME, or all
+# dotfiles when no path is provided
 ./dotfiles install .profile .config/nvim
-# Install all dotfile paths in the repository
 ./dotfiles install
+# Running the command without arguments also installs all dotfiles
+./dotfiles
 
 # Remove only symlinks created by this manager
 ./dotfiles remove .profile .config/nvim
+
+# Show the state of selected files, or every dotfile when no path is provided
+./dotfiles status .profile .config/nvim
+./dotfiles status
+
+# List files currently linked by this manager
+./dotfiles list
 ```
 
 Paths are relative to the repository. `install` warns and asks for
 confirmation before replacing an existing target. With no paths, it installs
 all files in the repository, excluding this script and the README.
-`remove` refuses to remove a target that is not a symlink back to this
-repository.
+`list` prints only repository files whose corresponding `$HOME` path is a
+symlink back to this repository. `remove` refuses to remove a target that is
+not a symlink back to this repository.
