@@ -106,7 +106,7 @@ install_file() {
 
     printf 'warning: install will replace existing target: %s\n' "$target" >&2
     printf 'Continue? [y/N] ' >&2
-    read answer || answer=
+    read answer </dev/tty || answer=
     case $answer in
         y|Y|yes|YES)
             rm -r "$target"
