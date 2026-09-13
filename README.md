@@ -14,9 +14,15 @@ Small POSIX `sh` manager for linking files from this repository into `$HOME`.
 ./dotfiles install
 # Running the command without arguments also installs all dotfiles
 ./dotfiles
+# Replace existing targets without prompting
+./dotfiles install --force
+# Leave existing targets unchanged
+./dotfiles install --ignore-existing
 
 # Remove only symlinks created by this manager
 ./dotfiles remove .profile .config/nvim
+# Remove every managed file
+./dotfiles remove
 
 # Show the state of selected files, or every dotfile when no path is provided
 ./dotfiles status .profile .config/nvim

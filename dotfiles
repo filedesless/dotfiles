@@ -4,13 +4,15 @@ set -eu
 
 repo_dir=$(CDPATH= cd -- "$(dirname -- "$0")" && pwd)
 home_dir=${HOME:?HOME must be set}
+force_install=false
+ignore_existing=false
 
 usage() {
     cat <<EOF
 Usage:
-  $(basename "$0") install [PATH...]
+  $(basename "$0") install [-f|--force] [-i|--ignore-existing] [PATH...]
   $(basename "$0") add PATH...
-  $(basename "$0") remove PATH...
+  $(basename "$0") remove [PATH...]
   $(basename "$0") status [PATH...]
   $(basename "$0") list
 
@@ -18,6 +20,9 @@ With no PATH, install installs every dotfile and status checks every dotfile.
 PATH is a file relative to this repository, or a path under ~, such as
 .profile or .config/niri/config.kdl.
 Running $(basename "$0") without a command installs every dotfile.
+
+--force replaces existing targets without prompting. --ignore-existing skips
+existing targets; --force takes precedence when both are specified.
 EOF
 }
 
@@ -108,17 +113,26 @@ install_file() {
         return
     fi
 
-    printf 'warning: install will replace existing target: %s\n' "$target" >&2
-    printf 'Continue? [y/N] ' >&2
-    read answer </dev/tty || answer=
-    case $answer in
-        y|Y|yes|YES)
-            rm -r "$target"
-            ;;
-        *)
-            die "installation cancelled: $file"
-            ;;
-    esac
+    if [ "$ignore_existing" = true ] && [ "$force_install" != true ]; then
+        printf 'already exists   %s\n' "$file"
+        return
+    fi
+
+    if [ "$force_install" = true ]; then
+        rm -r "$target"
+    else
+        printf 'warning: install will replace existing target: %s\n' "$target" >&2
+        printf 'Continue? [y/N] ' >&2
+        read answer </dev/tty || answer=
+        case $answer in
+            y|Y|yes|YES)
+                rm -r "$target"
+                ;;
+            *)
+                die "installation cancelled: $file"
+                ;;
+        esac
+    fi
 
     ln -s "$source" "$target"
     printf 'linked          %s\n' "$file"
@@ -156,6 +170,12 @@ remove_file() {
 
     rm "$target"
     printf 'removed          %s\n' "$file"
+}
+
+remove_all() {
+    list_managed | while IFS= read -r file; do
+        remove_file "$file"
+    done
 }
 
 status_file() {
@@ -228,6 +248,29 @@ case $command in
         for file do add_path_entry "$file"; done
         ;;
     install)
+        force_install=false
+        ignore_existing=false
+        while [ "$#" -gt 0 ]; do
+            case $1 in
+                -f|--force)
+                    force_install=true
+                    ;;
+                -i|--ignore-existing)
+                    ignore_existing=true
+                    ;;
+                --)
+                    shift
+                    break
+                    ;;
+                -*)
+                    die "unknown install option: $1"
+                    ;;
+                *)
+                    break
+                    ;;
+            esac
+            shift
+        done
         if [ "$#" -eq 0 ]; then
             install_all
         else
@@ -235,7 +278,11 @@ case $command in
         fi
         ;;
     remove)
-        for file do remove_file "$file"; done
+        if [ "$#" -eq 0 ]; then
+            remove_all
+        else
+            for file do remove_file "$file"; done
+        fi
         ;;
     status)
         if [ "$#" -eq 0 ]; then
