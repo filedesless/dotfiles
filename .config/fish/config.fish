@@ -9,8 +9,8 @@ if status is-interactive
 
     if type -q fzf
         set fzf_fd_opts --hidden
+        fzf_configure_bindings --directory=ctrl-o
     end
-    fzf_configure_bindings --directory=ctrl-o
     alias hx helix
     bind alt-e true
     bind alt-v true
