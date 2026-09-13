@@ -12,8 +12,8 @@ Usage:
   $(basename "$0") add PATH...
   $(basename "$0") remove PATH...
 
-PATH is a file or folder relative to this repository, such as .profile or
-.config/nvim.
+PATH is a file relative to this repository, such as .profile or
+.config/niri/config.kdl.
 EOF
 }
 
@@ -31,8 +31,8 @@ validate_file() {
             ;;
     esac
 
-    [ -e "$repo_dir/$file" ] || [ -L "$repo_dir/$file" ] ||
-        die "repository file does not exist: $file"
+    [ -f "$repo_dir/$file" ] ||
+        die "repository path is not a regular file: $file"
 }
 
 validate_path() {
@@ -75,20 +75,14 @@ add_path_entry() {
 
     [ ! -L "$source" ] ||
         die "home path is already a symlink; manage its target instead: $source"
-    [ -e "$source" ] || [ -L "$source" ] ||
-        die "home file does not exist: $source"
+    [ -f "$source" ] ||
+        die "home path is not a regular file: $source"
     [ ! -e "$target" ] && [ ! -L "$target" ] ||
         die "repository file already exists: $file"
 
     mkdir -p "$(dirname "$target")"
-    if [ -d "$source" ] && [ ! -L "$source" ]; then
-        # Copy directories as a complete tree before replacing them with a link.
-        cp -pR "$source" "$target"
-        rm -r "$source"
-    else
-        cp -p "$source" "$target"
-        rm "$source"
-    fi
+    cp -p "$source" "$target"
+    rm "$source"
     ln -s "$target" "$source"
     printf 'added and linked %s\n' "$file"
 }
@@ -127,23 +121,18 @@ install_file() {
 }
 
 install_all() {
-    found=false
-
-    for path in "$repo_dir"/* "$repo_dir"/.[!.]* "$repo_dir"/..?*; do
-        [ -e "$path" ] || [ -L "$path" ] || continue
+    find "$repo_dir" -type d -name .git -prune -o -type f -print |
+        while IFS= read -r path; do
         file=${path#"$repo_dir"/}
 
         case $file in
-            .git|dotfiles|README.md)
-                continue
+            dotfiles|README.md)
+                ;;
+            *)
+                install_file "$file"
                 ;;
         esac
-
-        found=true
-        install_file "$file"
     done
-
-    [ "$found" = true ] || die "no installable paths found in repository"
 }
 
 remove_file() {

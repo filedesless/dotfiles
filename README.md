@@ -1,13 +1,10 @@
 # dotfiles
 
-Small POSIX `sh` manager for linking files and folders from this repository
-into `$HOME`.
+Small POSIX `sh` manager for linking files from this repository into `$HOME`.
 
 ```sh
-# Adopt existing files or folders from $HOME (copy them, then create symlinks)
+# Adopt existing files from $HOME (copy them, then create symlinks)
 ./dotfiles add .profile .config/nvim
-# Folders are copied recursively before being linked
-./dotfiles add .config
 # Absolute paths inside $HOME are also accepted
 ./dotfiles add "$HOME/.profile"
 
@@ -22,6 +19,6 @@ into `$HOME`.
 
 Paths are relative to the repository. `install` warns and asks for
 confirmation before replacing an existing target. With no paths, it installs
-all top-level dotfile paths, excluding this script, the README, and `.git`.
+all files in the repository, excluding this script and the README.
 `remove` refuses to remove a target that is not a symlink back to this
 repository.
