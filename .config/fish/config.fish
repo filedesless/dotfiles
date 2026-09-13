@@ -7,7 +7,9 @@ if status is-interactive
         starship init fish | source
     end
 
-    set fzf_fd_opts --hidden
+    if type -q fzf
+        set fzf_fd_opts --hidden
+    end
     fzf_configure_bindings --directory=ctrl-o
     alias hx helix
     bind alt-e true
