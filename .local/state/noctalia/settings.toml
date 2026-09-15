@@ -1,0 +1,485 @@
+config_version = 14
+
+[bar]
+order = [ "top", "bottom" ]
+
+    [bar.bottom]
+    background_opacity = 0.79999998211860657
+    capsule = true
+    capsule_border = "primary"
+    capsule_padding = 16.0
+    capsule_radius = 8
+    center = [ "taskbar" ]
+    end = [ "tray", "group:g3", "clipboard", "group:g2", "group:g1" ]
+    hover_highlight = false
+    margin_ends = 0
+    position = "bottom"
+    start = [ "group:g4", "temp", "group:g5", "bar", "pulse", "widget_2" ]
+    thickness = 42
+
+        [[bar.bottom.capsule_group]]
+        accordion = false
+        accordion_direction = "end"
+        border = "primary"
+        enabled = true
+        fill = "surface_variant"
+        id = "g1"
+        members = [ "date", "clock" ]
+        opacity = 1.0
+        padding = 16.0
+
+        [[bar.bottom.capsule_group]]
+        accordion = false
+        accordion_direction = "end"
+        border = "primary"
+        enabled = true
+        fill = "surface_variant"
+        id = "g2"
+        members = [ "keyboard_layout", "keybinds", "widget_3" ]
+        opacity = 1.0
+        padding = 16.0
+
+        [[bar.bottom.capsule_group]]
+        accordion = false
+        accordion_direction = "end"
+        border = "primary"
+        enabled = true
+        fill = "surface_variant"
+        id = "g3"
+        members = [ "screenshot", "recorder" ]
+        opacity = 1.0
+        padding = 16.0
+
+        [[bar.bottom.capsule_group]]
+        accordion = false
+        accordion_direction = "end"
+        border = "primary"
+        enabled = true
+        fill = "surface_variant"
+        id = "g4"
+        members = [ "cpu", "ram", "gpu" ]
+        opacity = 1.0
+        padding = 6.0
+
+        [[bar.bottom.capsule_group]]
+        accordion = false
+        accordion_direction = "end"
+        border = "primary"
+        enabled = true
+        fill = "surface_variant"
+        id = "g5"
+        members = [ "disk_root", "disk_fast" ]
+        opacity = 1.0
+        padding = 6.0
+
+    [bar.top]
+    background_opacity = 0.74999998323619366
+    capsule = true
+    capsule_border = "primary"
+    capsule_padding = 16.0
+    capsule_radius = 8
+    center = [ "cat_2", "group:g5", "cat" ]
+    end = [ "group:g1", "group:g2", "group:g3", "group:g4" ]
+    hover_highlight = false
+    margin_ends = 0
+    scale = 1.1500000096857548
+    start = [ "taskbar_top", "active_window" ]
+    thickness = 42
+
+        [bar.top.dead_zone.actions]
+        scroll_down = "exec niri msg action focus-workspace-down"
+        scroll_up = "exec niri msg action focus-workspace-up"
+
+        [[bar.top.capsule_group]]
+        accordion = false
+        accordion_direction = "end"
+        border = "primary"
+        enabled = true
+        fill = "surface_variant"
+        id = "g1"
+        members = [ "widget", "notifications" ]
+        opacity = 0.78999996185302734
+        padding = 6.0
+
+        [[bar.top.capsule_group]]
+        accordion = false
+        accordion_direction = "end"
+        border = "primary"
+        enabled = true
+        fill = "surface_variant"
+        id = "g2"
+        members = [ "output_volume", "input_volume", "privacy" ]
+        opacity = 0.78999996185302734
+        padding = 6.0
+
+        [[bar.top.capsule_group]]
+        accordion = false
+        accordion_direction = "end"
+        border = "primary"
+        enabled = true
+        fill = "surface_variant"
+        id = "g3"
+        members = [ "network", "bluetooth" ]
+        opacity = 0.78999996185302734
+        padding = 6.0
+
+        [[bar.top.capsule_group]]
+        accordion = false
+        accordion_direction = "end"
+        border = "primary"
+        enabled = true
+        fill = "surface_variant"
+        id = "g5"
+        members = [ "audio_visualizer", "media", "audio_visualizer" ]
+        opacity = 0.78999996185302734
+        padding = 16.0
+
+        [[bar.top.capsule_group]]
+        accordion = false
+        accordion_direction = "end"
+        border = "primary"
+        enabled = true
+        fill = "surface_variant"
+        id = "g4"
+        members = [ "control-center", "settings", "session" ]
+        opacity = 0.78999996185302734
+        padding = 16.0
+        radius = 8.0
+
+[control_center]
+sidebar = "full"
+sidebar_section = "full"
+
+[desktop_widgets]
+schema_version = 2
+widget_order = []
+
+    [desktop_widgets.grid]
+    cell_size = 16
+    major_interval = 4
+    visible = true
+
+    [desktop_widgets.widget]
+
+[dock]
+pinned = [ "zen", "discord", "Alacritty", "org.gnome.Nautilus" ]
+
+[keybinds]
+down = [ "Down", "Ctrl+n" ]
+up = [ "Up", "Ctrl+p" ]
+
+[lockscreen_widgets]
+enabled = true
+schema_version = 2
+widget_order = [ "lockscreen-login-box@winit", "lockscreen-login-box@HDMI-A-1", "lockscreen-login-box@DP-1" ]
+
+    [lockscreen_widgets.grid]
+    cell_size = 16
+    major_interval = 4
+    visible = true
+
+    [lockscreen_widgets.widget."lockscreen-login-box@DP-1"]
+    box_height = 196.0
+    box_width = 810.0
+    cx = 1280.0
+    cy = 1258.0
+    output = "DP-1"
+    placement_height = 1440.0
+    placement_width = 2560.0
+    rotation = 0.0
+    type = "login_box"
+
+        [lockscreen_widgets.widget."lockscreen-login-box@DP-1".settings]
+        background_color = "surface_variant"
+        background_opacity = 0.88
+        background_radius = 12.0
+        center_password_text = false
+        input_opacity = 1.0
+        input_radius = 6.0
+        layout = "regular"
+        show_caps_lock = true
+        show_keyboard_layout = true
+        show_login_button = true
+        show_media = true
+        show_session_buttons = true
+        show_unlock_hint = true
+        show_weather = true
+
+    [lockscreen_widgets.widget."lockscreen-login-box@HDMI-A-1"]
+    box_height = 196.0
+    box_width = 810.0
+    cx = 960.0
+    cy = 898.0
+    output = "HDMI-A-1"
+    placement_height = 1080.0
+    placement_width = 1920.0
+    rotation = 0.0
+    type = "login_box"
+
+        [lockscreen_widgets.widget."lockscreen-login-box@HDMI-A-1".settings]
+        background_color = "surface_variant"
+        background_opacity = 0.88
+        background_radius = 12.0
+        center_password_text = false
+        input_opacity = 1.0
+        input_radius = 6.0
+        layout = "regular"
+        show_caps_lock = true
+        show_keyboard_layout = true
+        show_login_button = true
+        show_media = true
+        show_session_buttons = true
+        show_unlock_hint = true
+        show_weather = true
+
+    [lockscreen_widgets.widget."lockscreen-login-box@winit"]
+    box_height = 196.0
+    box_width = 810.0
+    cx = 628.0
+    cy = 1142.0
+    output = "winit"
+    placement_height = 1324.0
+    placement_width = 1256.0
+    rotation = 0.0
+    type = "login_box"
+
+        [lockscreen_widgets.widget."lockscreen-login-box@winit".settings]
+        background_color = "surface_variant"
+        background_opacity = 0.88
+        background_radius = 12.0
+        center_password_text = false
+        input_opacity = 1.0
+        input_radius = 6.0
+        layout = "regular"
+        show_caps_lock = true
+        show_keyboard_layout = true
+        show_login_button = true
+        show_media = true
+        show_session_buttons = true
+        show_unlock_hint = true
+        show_weather = true
+
+[plugin_settings."felipeartur/ai-usagebar"]
+panel_open_near_click = true
+panel_placement = "floating"
+
+[plugin_settings."h-jangra/keyviz"]
+enabled_by_default = false
+
+[plugin_settings."h-jangra/region-recorder"]
+video_source = "portal"
+
+[plugin_settings."lowcache/claude-companion"]
+answer_open_near_click = true
+ask_open_near_click = true
+consent_open_near_click = true
+sessions_open_near_click = true
+
+[plugin_settings."yuuto/arch-updater"]
+aur_helper = "paru"
+auto_check_hours = 1
+flatpak_enabled = false
+
+[plugins]
+enabled = [
+    "yuuto/arch-updater",
+    "kenn/keybind-cheatsheet",
+    "h-jangra/keyviz",
+    "noctalia/bongocat",
+    "dotnetrob/cat",
+    "noctalia/screen_recorder",
+    "nightwatch75/claude-cockpit"
+]
+
+[shell]
+font_family = "SF Pro"
+niri_overview_type_to_launch_enabled = true
+polkit_agent = true
+
+    [shell.launcher]
+    categories = false
+    show_app_actions = true
+
+        [shell.launcher.providers.windows]
+        global = false
+
+    [shell.panel]
+    borders = false
+    clipboard_position = "auto"
+    control_center_placement = "floating"
+    open_near_click_clipboard = true
+    open_near_click_control_center = true
+    open_near_click_launcher = true
+    open_near_click_wallpaper = true
+    shadow = false
+    transparency_mode = "glass"
+    wallpaper_placement = "floating"
+
+    [shell.screen_corners]
+    enabled = true
+
+    [shell.screenshot]
+    annotate = true
+    confirm_region = true
+    directory = "/home/filedesless/Pictures/Screenshots"
+    remember_last_region = true
+
+[theme]
+builtin = "Catppuccin"
+community_palette = "Catppuccin Mocha Mauve-Lavender"
+mode = "dark"
+source = "wallpaper"
+wallpaper_scheme = "soft"
+
+    [theme.templates]
+    builtin_ids = [ "gtk3", "gtk4", "niri", "qt", "scroll" ]
+    community_ids = [ "zen-browser" ]
+
+[wallpaper.default]
+path = "/home/filedesless/Pictures/waves.png"
+
+[wallpaper.last]
+path = "/home/filedesless/Pictures/waves.png"
+
+[wallpaper.monitors.DP-1]
+path = "/home/filedesless/Pictures/waves.png"
+
+[wallpaper.monitors.HDMI-A-1]
+path = "/home/filedesless/Pictures/waves.png"
+
+[widget.audio_visualizer]
+show_when_idle = true
+
+[widget.bar]
+type = "felipeartur/ai-usagebar:bar"
+vendor = "copilot"
+visualization = "gauge"
+
+[widget.battery]
+enabled = false
+
+[widget.bluetooth]
+show_label = true
+
+[widget.brightness]
+enabled = false
+
+[widget.cat]
+type = "noctalia/bongocat:cat"
+
+[widget.cat_2]
+type = "dotnetrob/cat:cat"
+
+[widget.clipboard]
+capsule = true
+capsule_border = "primary"
+capsule_fill = "surface_variant"
+capsule_padding = 16
+enabled = false
+
+[widget.control-center]
+glyph = "layout-dashboard-filled"
+
+[widget.cpu]
+glyph = "cpu-usage"
+
+[widget.disk_fast]
+glyph = "archive"
+path = "/mnt/Fast"
+stat = "disk_used_pct"
+type = "sysmon"
+
+[widget.disk_root]
+glyph = "slash"
+stat = "disk_used_pct"
+type = "sysmon"
+
+[widget.gpu]
+glyph = "device-desktop"
+stat = "gpu_usage"
+type = "sysmon"
+
+[widget.keybinds]
+glyph = "question-mark"
+type = "kenn/keybind-cheatsheet:keybinds"
+
+[widget.keyboard_layout]
+capsule = true
+capsule_border = "primary"
+capsule_fill = "surface_variant"
+capsule_padding = 16
+capsule_radius = "auto"
+
+[widget.launcher]
+enabled = false
+glyph = "apps"
+
+[widget.media]
+art_size = 96
+show_progress = true
+
+    [widget.media.actions]
+    scroll_down = "none"
+    scroll_up = "none"
+
+[widget.privacy]
+hide_inactive = true
+
+[widget.pulse]
+type = "lowcache/claude-companion:pulse"
+
+[widget.ram]
+stat = "ram_pct"
+
+[widget.recorder]
+type = "noctalia/screen_recorder:recorder"
+
+[widget.screenshot]
+glyph = "camera"
+
+[widget.sysmon]
+enabled = false
+
+[widget.taskbar]
+hide_empty_workspaces = true
+inactive_opacity = 0.67000000000000004
+item_spacing = 16
+only_active_workspace = true
+show_window_title = true
+
+[widget.taskbar_top]
+group_by_workspace = true
+hide_empty_workspaces = true
+type = "taskbar"
+workspace_label_placement = "inside"
+
+[widget.temp]
+enabled = false
+
+[widget.tray]
+capsule_border = "primary"
+capsule_fill = "surface_variant"
+capsule_foreground = "primary"
+capsule_padding = 16
+capsule_radius = "auto"
+
+[widget.volume]
+enabled = false
+
+[widget.wallpaper]
+enabled = false
+
+[widget.widget]
+type = "yuuto/arch-updater:widget"
+
+[widget.widget_2]
+capsule = true
+capsule_border = "primary"
+capsule_fill = "surface_variant"
+type = "nightwatch75/claude-cockpit:widget"
+
+[widget.widget_3]
+type = "h-jangra/keyviz:widget"
+
+[widget.workspaces]
+hide_when_empty = true
