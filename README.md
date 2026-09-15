@@ -10,19 +10,19 @@ Small POSIX `sh` manager for linking files from this repository into `$HOME`.
 
 # Create parent directories and symlink selected paths into $HOME, or all
 # dotfiles when no path is provided
-./dotfiles install .profile .config/nvim
-./dotfiles install
-# Running the command without arguments also installs all dotfiles
+./dotfiles link .profile .config/nvim
+./dotfiles link
+# Running the command without arguments prints usage
 ./dotfiles
 # Replace existing targets without prompting
-./dotfiles install --force
+./dotfiles link --force
 # Leave existing targets unchanged
-./dotfiles install --ignore-existing
+./dotfiles link --ignore-existing
 
 # Remove only symlinks created by this manager
-./dotfiles remove .profile .config/nvim
+./dotfiles unlink .profile .config/nvim
 # Remove every managed file
-./dotfiles remove
+./dotfiles unlink
 
 # Show the state of selected files, or every dotfile when no path is provided
 ./dotfiles status .profile .config/nvim
@@ -32,9 +32,10 @@ Small POSIX `sh` manager for linking files from this repository into `$HOME`.
 ./dotfiles list
 ```
 
-Paths are relative to the repository. `install` warns and asks for
-confirmation before replacing an existing target. With no paths, it installs
-all files in the repository, excluding this script and the README.
+Paths are relative to the repository. `link` warns and asks for
+confirmation before replacing an existing target. With no paths, `link`
+links all files in the repository, excluding this script and the README;
+running `./dotfiles` with no command prints usage instead.
 `list` prints only repository files whose corresponding `$HOME` path is a
-symlink back to this repository. `remove` refuses to remove a target that is
-not a symlink back to this repository.
+symlink back to this repository. `unlink` refuses to remove a target that
+is not a symlink back to this repository.

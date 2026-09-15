@@ -4,22 +4,22 @@ set -eu
 
 repo_dir=$(CDPATH= cd -- "$(dirname -- "$0")" && pwd)
 home_dir=${HOME:?HOME must be set}
-force_install=false
+force_link=false
 ignore_existing=false
 
 usage() {
     cat <<EOF
 Usage:
-  $(basename "$0") install [-f|--force] [-i|--ignore-existing] [PATH...]
+  $(basename "$0") link [-f|--force] [-i|--ignore-existing] [PATH...]
   $(basename "$0") add PATH...
-  $(basename "$0") remove [PATH...]
+  $(basename "$0") unlink [PATH...]
   $(basename "$0") status [PATH...]
   $(basename "$0") list
 
-With no PATH, install installs every dotfile and status checks every dotfile.
+With no PATH, link links every dotfile and status checks every dotfile.
 PATH is a file relative to this repository, or a path under ~, such as
 .profile or .config/niri/config.kdl.
-Running $(basename "$0") without a command installs every dotfile.
+Running $(basename "$0") without a command prints this usage.
 
 --force replaces existing targets without prompting. --ignore-existing skips
 existing targets; --force takes precedence when both are specified.
@@ -96,7 +96,7 @@ add_path_entry() {
     printf 'added and linked %s\n' "$file"
 }
 
-install_file() {
+link_file() {
     file=$(normalize_path "$1")
     source=$repo_dir/$file
     target=$home_dir/$file
@@ -113,15 +113,15 @@ install_file() {
         return
     fi
 
-    if [ "$ignore_existing" = true ] && [ "$force_install" != true ]; then
+    if [ "$ignore_existing" = true ] && [ "$force_link" != true ]; then
         printf 'already exists   %s\n' "$file"
         return
     fi
 
-    if [ "$force_install" = true ]; then
+    if [ "$force_link" = true ]; then
         rm -r "$target"
     else
-        printf 'warning: install will replace existing target: %s\n' "$target" >&2
+        printf 'warning: link will replace existing target: %s\n' "$target" >&2
         printf 'Continue? [y/N] ' >&2
         read answer </dev/tty || answer=
         case $answer in
@@ -129,7 +129,7 @@ install_file() {
                 rm -r "$target"
                 ;;
             *)
-                die "installation cancelled: $file"
+                die "link cancelled: $file"
                 ;;
         esac
     fi
@@ -138,7 +138,7 @@ install_file() {
     printf 'linked          %s\n' "$file"
 }
 
-install_all() {
+link_all() {
     find "$repo_dir" -type d -name .git -prune -o -type f -print |
         while IFS= read -r path; do
         file=${path#"$repo_dir"/}
@@ -147,13 +147,13 @@ install_all() {
             dotfiles|README.md)
                 ;;
             *)
-                install_file "$file"
+                link_file "$file"
                 ;;
         esac
     done
 }
 
-remove_file() {
+unlink_file() {
     file=$(normalize_path "$1")
     source=$repo_dir/$file
     target=$home_dir/$file
@@ -172,9 +172,9 @@ remove_file() {
     printf 'removed          %s\n' "$file"
 }
 
-remove_all() {
+unlink_all() {
     list_managed | while IFS= read -r file; do
-        remove_file "$file"
+        unlink_file "$file"
     done
 }
 
@@ -229,7 +229,7 @@ list_managed() {
 }
 
 [ "$#" -ge 1 ] || {
-    install_all
+    usage
     exit 0
 }
 
@@ -247,13 +247,13 @@ case $command in
     add)
         for file do add_path_entry "$file"; done
         ;;
-    install)
-        force_install=false
+    link)
+        force_link=false
         ignore_existing=false
         while [ "$#" -gt 0 ]; do
             case $1 in
                 -f|--force)
-                    force_install=true
+                    force_link=true
                     ;;
                 -i|--ignore-existing)
                     ignore_existing=true
@@ -263,7 +263,7 @@ case $command in
                     break
                     ;;
                 -*)
-                    die "unknown install option: $1"
+                    die "unknown link option: $1"
                     ;;
                 *)
                     break
@@ -272,16 +272,16 @@ case $command in
             shift
         done
         if [ "$#" -eq 0 ]; then
-            install_all
+            link_all
         else
-            for file do install_file "$file"; done
+            for file do link_file "$file"; done
         fi
         ;;
-    remove)
+    unlink)
         if [ "$#" -eq 0 ]; then
-            remove_all
+            unlink_all
         else
-            for file do remove_file "$file"; done
+            for file do unlink_file "$file"; done
         fi
         ;;
     status)
