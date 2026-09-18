@@ -10,7 +10,7 @@ order = [ "top", "bottom" ]
     capsule_padding = 16.0
     capsule_radius = 8
     center = [ "taskbar" ]
-    end = [ "tray", "group:g3", "clipboard", "group:g2", "group:g1" ]
+    end = [ "launcher_2", "tray", "group:g3", "clipboard", "group:g2", "group:g1" ]
     hover_highlight = false
     margin_ends = 0
     position = "bottom"
@@ -259,6 +259,9 @@ widget_order = [ "lockscreen-login-box@winit", "lockscreen-login-box@HDMI-A-1", 
         show_unlock_hint = true
         show_weather = true
 
+[plugin_settings."alexander/game-launcher"]
+browser_position = "auto"
+
 [plugin_settings."felipeartur/ai-usagebar"]
 panel_open_near_click = true
 panel_placement = "floating"
@@ -275,6 +278,9 @@ ask_open_near_click = true
 consent_open_near_click = true
 sessions_open_near_click = true
 
+[plugin_settings."nightwatch75/claude-cockpit"]
+panel_placement = "floating"
+
 [plugin_settings."yuuto/arch-updater"]
 aur_helper = "paru"
 auto_check_hours = 1
@@ -288,8 +294,25 @@ enabled = [
     "noctalia/bongocat",
     "dotnetrob/cat",
     "noctalia/screen_recorder",
-    "nightwatch75/claude-cockpit"
+    "nightwatch75/claude-cockpit",
+    "alexander/game-launcher"
 ]
+
+    [[plugins.source]]
+    kind = "git"
+    location = "https://github.com/noctalia-dev/official-plugins"
+    name = "official"
+
+    [[plugins.source]]
+    kind = "git"
+    location = "https://github.com/noctalia-dev/community-plugins"
+    name = "community"
+
+    [[plugins.source]]
+    enabled = false
+    kind = "path"
+    location = "/home/filedesless/src/community-plugins/"
+    name = "dev"
 
 [shell]
 font_family = "SF Pro"
@@ -333,7 +356,7 @@ wallpaper_scheme = "soft"
 
     [theme.templates]
     builtin_ids = [ "gtk3", "gtk4", "niri", "qt", "scroll" ]
-    community_ids = [ "zen-browser" ]
+    community_ids = [ "zen-browser", "zed" ]
 
 [wallpaper.default]
 path = "/home/filedesless/Pictures/waves.png"
@@ -413,6 +436,9 @@ capsule_radius = "auto"
 [widget.launcher]
 enabled = false
 glyph = "apps"
+
+[widget.launcher_2]
+type = "alexander/game-launcher:launcher"
 
 [widget.media]
 art_size = 96

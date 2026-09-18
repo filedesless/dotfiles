@@ -209,9 +209,12 @@ binds {
     Mod+Tab repeat=false { toggle-overview; }
     Mod+Alt+L hotkey-overlay-title="Lock Screen" { spawn "noctalia" "msg" "session" "lock"; }
     Mod+Space hotkey-overlay-title="Open Launcher" { spawn "noctalia" "msg" "panel-toggle" "launcher"; }
-    Mod+C hotkey-overlay-title="Edit config" {
-         spawn-sh "~/src/dotfiles/dotfiles list | noctalia dmenu | xargs alacritty -e $EDITOR";
-     }
+    Mod+C hotkey-overlay-title="Edit Config" {
+         spawn-sh "~/src/dotfiles/dotfiles list | noctalia dmenu | xargs --no-run-if-empty alacritty -e $EDITOR";
+    }
+    Mod+G hotkey-overlay-title="Launch Game" {
+         spawn-sh "noctalia msg panel-toggle alexander/game-launcher:browser";
+    }
 }
 
 
