@@ -198,6 +198,14 @@ binds {
     Alt+Print { spawn "noctalia" "msg" "screenshot-annotate"; }
     Ctrl+Print { spawn "noctalia" "msg" "screenshot-fullscreen"; }
 
+    XF86AudioRaiseVolume allow-when-locked=true { spawn "wpctl" "set-volume" "-l" "1.0" "@DEFAULT_AUDIO_SINK@" "5%+"; }
+    XF86AudioLowerVolume allow-when-locked=true { spawn "wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@" "5%-"; }
+    XF86AudioMute allow-when-locked=true { spawn "wpctl" "set-mute" "@DEFAULT_AUDIO_SINK@" "toggle"; }
+
+    XF86AudioPlay allow-when-locked=true { spawn "playerctl" "play-pause"; }
+    XF86AudioNext allow-when-locked=true { spawn "playerctl" "next"; }
+    XF86AudioPrev allow-when-locked=true { spawn "playerctl" "previous"; }
+
     Mod+Shift+E { quit; }
     Mod+Comma hotkey-overlay-title="Open Settings" { spawn "noctalia" "msg" "settings-toggle"; }
     Mod+B hotkey-overlay-title="Open Browser" { spawn "xdg-open" "http://about:blank"; }
@@ -214,6 +222,9 @@ binds {
     }
     Mod+G hotkey-overlay-title="Launch Game" {
          spawn-sh "noctalia msg panel-toggle alexander/game-launcher:browser";
+    }
+    Mod+S hotkey-overlay-title="Replay Save" {
+         spawn-sh "noctalia msg plugin noctalia/screen_recorder:service all replay-save";
     }
 }
 
