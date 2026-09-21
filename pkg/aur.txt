@@ -13,6 +13,7 @@ fish-fzf
 github-copilot-cli-bin
 greetd-dms-greeter-bin
 homepod-sink-git
+homepod-sink-git-debug
 lib32-obs-vkcapture
 mdpls-git
 minecraft-launcher
