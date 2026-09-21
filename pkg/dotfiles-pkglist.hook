@@ -1,0 +1,10 @@
+[Trigger]
+Operation = Install
+Operation = Remove
+Type = Package
+Target = *
+
+[Action]
+Description = Syncing explicit package list to dotfiles repo...
+When = PostTransaction
+Exec = /usr/bin/sudo -u filedesless /home/filedesless/src/dotfiles/pkg/sync-pkglist.sh
