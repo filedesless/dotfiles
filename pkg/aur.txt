@@ -1,4 +1,3 @@
-ai-usagebar-bin
 apple-fonts
 ashell-bin
 claude-code
