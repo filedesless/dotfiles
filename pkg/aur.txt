@@ -1,5 +1,4 @@
 apple-fonts
-claude-code
 fish-fzf
 github-copilot-cli-bin
 homepod-sink-git
