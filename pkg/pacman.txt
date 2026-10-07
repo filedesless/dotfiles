@@ -12,7 +12,6 @@ btrfs-progs
 cava
 dgop
 discord
-dnsmasq
 efibootmgr
 evince
 evtest
@@ -74,8 +73,6 @@ pv
 python-lsp-server
 python-pip
 qbittorrent
-qemu-desktop
-quickshell
 ripgrep
 rtkit
 ruff
@@ -93,7 +90,6 @@ tcpdump
 termshark
 texlab
 texlive-binextra
-texlive-fontsextra
 texlive-langfrench
 texlive-latex
 texlive-latexextra
@@ -115,8 +111,6 @@ tumbler
 ufw
 unzip
 vim
-virt-manager
-virtualbox
 wireplumber
 wl-clipboard
 woff2-font-awesome

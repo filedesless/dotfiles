@@ -1,18 +1,10 @@
 apple-fonts
-ashell-bin
 claude-code
 claude-desktop
 claude-science
-cursor-bin
-dankcalendar-bin
-dankcalendar-bin-debug
-dsearch-bin
-dsearch-bin-debug
 fish-fzf
 github-copilot-cli-bin
-greetd-dms-greeter-bin
 homepod-sink-git
-homepod-sink-git-debug
 lib32-obs-vkcapture
 mdpls-git
 minecraft-launcher
@@ -20,7 +12,6 @@ noctalia-greeter
 obs-vkcapture
 oniri
 paru
-paru-debug
 ps_mem
 spotify-adblock
 timg
