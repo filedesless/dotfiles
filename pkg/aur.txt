@@ -7,7 +7,6 @@ mdpls-git
 minecraft-launcher
 noctalia-greeter
 obs-vkcapture
-oniri
 paru
 ps_mem
 spotify-adblock
