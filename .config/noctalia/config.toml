@@ -282,7 +282,9 @@ sessions_open_near_click = true
 panel_placement = "floating"
 
 [plugin_settings."yuuto/arch-updater"]
-aur_helper = "paru"
+aur_helper = "custom"
+aur_check_cmd = "/home/filedesless/.local/bin/paru-check-updates"
+update_cmd = "paru -Syu"
 auto_check_hours = 1
 flatpak_enabled = false
 
