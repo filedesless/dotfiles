@@ -13,6 +13,5 @@ spotify-adblock
 timg
 ttf-mononoki
 ttf-source-code-pro-ibx
-umbriel-git
 visual-studio-code-bin
 zen-browser-bin
