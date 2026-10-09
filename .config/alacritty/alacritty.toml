@@ -20,3 +20,13 @@ action = "SpawnNewInstance"
 key = "Return"
 mods = "Shift"
 chars = "\u001B\r"
+
+[[keyboard.bindings]]
+key = "C"
+mods = "Super"
+action = "Copy"
+
+[[keyboard.bindings]]
+key = "V"
+mods = "Super"
+action = "Paste"
