@@ -199,13 +199,27 @@ binds {
     Alt+Print { spawn "noctalia" "msg" "screenshot-annotate"; }
     Ctrl+Print { spawn "noctalia" "msg" "screenshot-fullscreen"; }
 
-    XF86AudioRaiseVolume allow-when-locked=true { spawn "wpctl" "set-volume" "-l" "1.0" "@DEFAULT_AUDIO_SINK@" "5%+"; }
-    XF86AudioLowerVolume allow-when-locked=true { spawn "wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@" "5%-"; }
-    XF86AudioMute allow-when-locked=true { spawn "wpctl" "set-mute" "@DEFAULT_AUDIO_SINK@" "toggle"; }
+    XF86AudioRaiseVolume allow-when-locked=true { spawn "noctalia" "msg" "volume-up"; }
+    XF86AudioLowerVolume allow-when-locked=true { spawn "noctalia" "msg" "volume-down"; }
+    XF86AudioMute allow-when-locked=true { spawn "noctalia" "msg" "volume-mute"; }
+    XF86AudioMicMute allow-when-locked=true { spawn "noctalia" "msg" "mic-mute"; }
 
-    XF86AudioPlay allow-when-locked=true { spawn "playerctl" "play-pause"; }
-    XF86AudioNext allow-when-locked=true { spawn "playerctl" "next"; }
-    XF86AudioPrev allow-when-locked=true { spawn "playerctl" "previous"; }
+    XF86AudioPlay allow-when-locked=true { spawn "noctalia" "msg" "media" "toggle"; }
+    XF86AudioPause allow-when-locked=true { spawn "noctalia" "msg" "media" "toggle"; }
+    XF86AudioNext allow-when-locked=true { spawn "noctalia" "msg" "media" "next"; }
+    XF86AudioPrev allow-when-locked=true { spawn "noctalia" "msg" "media" "previous"; }
+    XF86AudioStop allow-when-locked=true { spawn "noctalia" "msg" "media" "stop"; }
+
+    XF86MonBrightnessUp allow-when-locked=true { spawn "noctalia" "msg" "brightness-up"; }
+    XF86MonBrightnessDown allow-when-locked=true { spawn "noctalia" "msg" "brightness-down"; }
+
+    // noctalia's keyboard-backlight-up/down step by 1/255 on the smc backlight, so step by 10% instead
+    XF86KbdBrightnessUp allow-when-locked=true {
+        spawn-sh "d=/sys/class/leds/smc::kbd_backlight; p=$(( $(cat $d/brightness) * 100 / $(cat $d/max_brightness) + 10 )); [ $p -gt 100 ] && p=100; noctalia msg keyboard-backlight-set $p";
+    }
+    XF86KbdBrightnessDown allow-when-locked=true {
+        spawn-sh "d=/sys/class/leds/smc::kbd_backlight; p=$(( $(cat $d/brightness) * 100 / $(cat $d/max_brightness) - 10 )); [ $p -lt 0 ] && p=0; noctalia msg keyboard-backlight-set $p";
+    }
 
     Mod+Shift+E { quit; }
     Mod+Comma hotkey-overlay-title="Open Settings" { spawn "noctalia" "msg" "settings-toggle"; }
