@@ -1,0 +1,30 @@
+#!/bin/sh
+# `paru -Qua`, plus devel (-git) updates for packages from paru.conf PKGBUILD
+# repos: paru 2.1's -Qu only prints devel updates for packages it finds in the
+# AUR, even though -Syu does upgrade them. Output is -Qua's
+# "name oldver -> newver" format, for the noctalia arch-updater plugin.
+
+LC_ALL=C paru -Qua
+rc=$?
+
+devel=${XDG_STATE_HOME:-$HOME/.local/state}/paru/devel.toml
+[ -r "$devel" ] || exit $rc
+
+for pkg in $(LC_ALL=C paru -Sl --pkgbuilds 2>/dev/null | awk '/\[installed/ {print $2}'); do
+    # One "url branch commit" line per [[pkg]] source block ("-" = no branch).
+    awk -v want="[[$pkg]]" '
+        function flush() { if (url != "") print url, (branch == "" ? "-" : branch), commit; url = branch = commit = "" }
+        /^\[\[/ { flush(); inblock = ($0 == want); next }
+        inblock && /^(url|branch|commit) = / { v = $3; gsub(/"/, "", v); if ($1 == "url") url = v; else if ($1 == "branch") branch = v; else commit = v }
+        END { flush() }
+    ' "$devel" | while read -r url branch commit; do
+        [ "$branch" = - ] && branch=HEAD
+        head=$(timeout 20 git ls-remote "$url" "$branch" 2>/dev/null | cut -f1 | head -n1)
+        if [ -n "$head" ] && [ "$head" != "$commit" ]; then
+            echo "$pkg $(pacman -Q "$pkg" | cut -d' ' -f2) -> latest-commit"
+            break
+        fi
+    done
+done | sort -u | grep . && exit 0
+
+exit $rc
