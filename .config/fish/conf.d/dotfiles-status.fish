@@ -1,7 +1,8 @@
 # On interactive startup, report when the dotfiles repo has local changes to
-# commit, commits to push, or upstream commits to pull, and offer to sync when
-# that can be done without conflicts. The upstream check uses the last fetch;
-# a throttled background fetch refreshes it for later shells.
+# commit, commits to push, upstream commits to pull, or files not linked into
+# $HOME, and offer to sync or link when that can be done without conflicts.
+# The upstream check uses the last fetch; a throttled background fetch
+# refreshes it for later shells.
 status is-interactive; or return
 
 function __dotfiles_status
@@ -50,22 +51,47 @@ function __dotfiles_status
             echo "dotfiles: can't sync automatically: $blocker"
             set_color normal
         else if read -n1 -P "dotfiles: sync with upstream? [y/N] " answer; and string match -qi y -- $answer
-            if test $behind -gt 0
-                if not command git -C $repo pull --rebase --autostash --quiet
-                    command git -C $repo rebase --abort &>/dev/null
-                    set_color red
-                    echo "dotfiles: pull failed, repo left as it was"
-                    set_color normal
-                    return
-                end
+            if test $behind -gt 0; and not command git -C $repo pull --rebase --autostash --quiet
+                command git -C $repo rebase --abort &>/dev/null
+                set_color red
+                echo "dotfiles: pull failed, repo left as it was"
+                set_color normal
+            else if test $ahead -gt 0; and not command git -C $repo push --quiet
+                set_color red
+                echo "dotfiles: push failed"
+                set_color normal
+            else
+                set_color green
+                echo "dotfiles: synced"
+                set_color normal
             end
-            if test $ahead -gt 0
-                command git -C $repo push --quiet; or return
-            end
-            set_color green
-            echo "dotfiles: synced"
-            set_color normal
-            return
+        end
+    end
+
+    # Offer to link repo files missing from $HOME; files whose $HOME path is
+    # taken by something else are only reported, since linking would replace it.
+    set -l missing
+    set -l taken
+    for line in ($repo/dotfiles status 2>/dev/null)
+        set -l fields (string split -n -m1 ' ' -- $line)
+        switch $fields[1]
+            case missing
+                set -a missing (string trim -- $fields[2])
+            case not
+                set -a taken (string replace -r '^managed\s+' '' -- $fields[2])
+        end
+    end
+    if set -q taken[1]
+        set_color red
+        echo "dotfiles: not linked, existing file in the way: "(string join ', ' $taken)
+        set_color normal
+    end
+    if set -q missing[1]
+        set_color yellow
+        echo "dotfiles: not linked yet: "(string join ', ' $missing)
+        set_color normal
+        if read -n1 -P "dotfiles: link them? [y/N] " answer; and string match -qi y -- $answer
+            $repo/dotfiles link --ignore-existing -- $missing | string replace -r '^' 'dotfiles: '
         end
     end
 
